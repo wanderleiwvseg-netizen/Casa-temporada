@@ -3,343 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa por Temporada - Nova Guarapari</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Casa por Temporada em Nova Guarapari - Praia de Peracanga. Luxo à beira-mar para até 8 hóspedes.">
+    <title>Casa por Temporada • Nova Guarapari - Peracanga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ============================================================
-           RESET E CONFIGURAÇÕES GERAIS
-           ============================================================ */
-        *,
-        *::before,
-        *::after {
+        :root {
+            --ocean: #0A2540;
+            --deep-ocean: #05121F;
+            --gold: #D4AF37;
+            --light-gold: #E8C670;
+            --white: #F8F9FA;
+            --light-gray: #E5E7EB;
+            --glass: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --azul-oceano: #0a4a5e;
-            --azul-petroleo: #1a2f3a;
-            --dourado: #d4af37;
-            --dourado-suave: #f0e2b5;
-            --branco: #ffffff;
-            --cinza-claro: #f5f7fa;
-            --cinza-texto: #4a5a6a;
-            --glass: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.18);
-            --sombra: 0 20px 60px rgba(0, 0, 0, 0.12);
-            --sombra-suave: 0 8px 32px rgba(0, 0, 0, 0.06);
-            --raio: 20px;
-            --transicao: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--branco);
-            color: var(--azul-petroleo);
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+            color: var(--white);
+            background: var(--deep-ocean);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--cinza-claro);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--azul-oceano);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--dourado);
-        }
-
-        /* ============================================================
-           TELA DE CARREGAMENTO CINEMATOGRÁFICA
-           ============================================================ */
-        #loading-screen {
+        /* LOADING SCREEN */
+        #loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: 10000;
-            background: var(--azul-petroleo);
+            height: 100vh;
+            background: var(--deep-ocean);
+            z-index: 9999;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            flex-direction: column;
             overflow: hidden;
-            transition: opacity 1.2s ease, visibility 1.2s ease;
+            transition: opacity 1.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        #loading-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .wave-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg,
-                    rgba(10, 74, 94, 0.92) 0%,
-                    rgba(10, 74, 94, 0.88) 30%,
-                    rgba(13, 106, 134, 0.85) 60%,
-                    rgba(30, 150, 180, 0.75) 85%,
-                    rgba(60, 190, 220, 0.5) 100%);
-            overflow: hidden;
-        }
-
-        .wave-bg svg {
-            position: absolute;
-            bottom: -5%;
-            left: 0;
-            width: 100%;
-            height: 70%;
-            animation: waveFloat 8s ease-in-out infinite alternate;
-        }
-
-        .wave-bg svg:nth-child(2) {
-            bottom: -8%;
-            opacity: 0.5;
-            animation-duration: 10s;
-            animation-delay: -2s;
-        }
-
-        .wave-bg svg:nth-child(3) {
-            bottom: -12%;
-            opacity: 0.3;
-            animation-duration: 12s;
-            animation-delay: -4s;
-        }
-
-        @keyframes waveFloat {
-            0% {
-                transform: translateX(-2%) scaleY(1);
-            }
-            100% {
-                transform: translateX(2%) scaleY(1.08);
-            }
-        }
-
-        .loading-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            animation: loadingPulse 2.4s ease-in-out infinite;
-        }
-
-        .loading-content .subtitle {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 0.9rem;
-            letter-spacing: 8px;
-            color: rgba(255, 255, 255, 0.6);
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .loading-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3.5rem, 12vw, 7rem);
-            font-weight: 700;
-            font-style: italic;
-            color: var(--branco);
-            line-height: 0.95;
-            text-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
-            letter-spacing: 4px;
-        }
-
-        .loading-content h1 span {
-            color: var(--dourado);
-            font-weight: 400;
-        }
-
-        .loading-content .loading-bar {
-            width: 200px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
-            margin: 30px auto 0;
-            overflow: hidden;
-        }
-
-        .loading-content .loading-bar::after {
-            content: '';
-            display: block;
-            width: 40%;
-            height: 100%;
-            background: var(--dourado);
-            border-radius: 4px;
-            animation: loadingProgress 2.8s ease-in-out infinite;
-        }
-
-        @keyframes loadingPulse {
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.92;
-                transform: scale(1.01);
-            }
-        }
-
-        @keyframes loadingProgress {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(350%);
-            }
-        }
-
-        .particles {
+        #loader canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
-            pointer-events: none;
-            overflow: hidden;
+            opacity: 0.9;
         }
 
-        .particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            animation: particleFloat linear infinite;
-        }
-
-        .particle:nth-child(1) {
-            left: 10%;
-            animation-duration: 7s;
-            animation-delay: 0s;
-            width: 4px;
-            height: 4px;
-        }
-        .particle:nth-child(2) {
-            left: 25%;
-            animation-duration: 9s;
-            animation-delay: 1s;
-            width: 8px;
-            height: 8px;
-        }
-        .particle:nth-child(3) {
-            left: 40%;
-            animation-duration: 6s;
-            animation-delay: 0.5s;
-            width: 3px;
-            height: 3px;
-        }
-        .particle:nth-child(4) {
-            left: 55%;
-            animation-duration: 11s;
-            animation-delay: 2s;
-            width: 10px;
-            height: 10px;
-            opacity: 0.08;
-        }
-        .particle:nth-child(5) {
-            left: 70%;
-            animation-duration: 8s;
-            animation-delay: 0.3s;
-            width: 5px;
-            height: 5px;
-        }
-        .particle:nth-child(6) {
-            left: 85%;
-            animation-duration: 10s;
-            animation-delay: 1.5s;
-            width: 7px;
-            height: 7px;
-        }
-        .particle:nth-child(7) {
-            left: 15%;
-            animation-duration: 12s;
-            animation-delay: 0.8s;
-            width: 9px;
-            height: 9px;
-            opacity: 0.06;
-        }
-        .particle:nth-child(8) {
-            left: 50%;
-            animation-duration: 7.5s;
-            animation-delay: 1.2s;
-            width: 4px;
-            height: 4px;
-        }
-        .particle:nth-child(9) {
-            left: 75%;
-            animation-duration: 9.5s;
-            animation-delay: 0.2s;
-            width: 6px;
-            height: 6px;
-        }
-        .particle:nth-child(10) {
-            left: 92%;
-            animation-duration: 8.5s;
-            animation-delay: 1.8s;
-            width: 5px;
-            height: 5px;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) rotate(0deg) scale(0);
-                opacity: 0;
-            }
-            20% {
-                opacity: 0.6;
-                transform: translateY(70vh) rotate(180deg) scale(1);
-            }
-            80% {
-                opacity: 0.4;
-            }
-            100% {
-                transform: translateY(-10vh) rotate(720deg) scale(0.5);
-                opacity: 0;
-            }
-        }
-
-        /* ============================================================
-           CONTEÚDO PRINCIPAL
-           ============================================================ */
-        #main-content {
-            opacity: 0;
-            transition: opacity 1.4s ease;
-        }
-
-        #main-content.visible {
-            opacity: 1;
-        }
-
-        /* ============================================================
-           HEADER / HERO
-           ============================================================ */
-        .hero {
+        .loader-content {
             position: relative;
+            z-index: 2;
+            text-align: center;
             width: 100%;
+        }
+
+        .logo-loader {
+            font-size: 4.8rem;
+            font-weight: 700;
+            letter-spacing: -5px;
+            background: linear-gradient(90deg, var(--white), var(--gold), var(--white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 60px rgba(212, 175, 55, 0.7);
+        }
+
+        .tagline-loader {
+            font-size: 1.45rem;
+            letter-spacing: 8px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3.5rem;
+        }
+
+        .progress-container {
+            width: 380px;
+            height: 3px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--gold), #fff, var(--gold));
+            transition: width 3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 30px var(--gold);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1.4rem 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav.scrolled {
+            background: rgba(5, 18, 31, 0.92);
+            backdrop-filter: blur(24px);
+            padding: 1rem 6%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            font-size: 1.95rem;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.08rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: var(--gold);
+            transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 32px;
+            height: 3px;
+            background: white;
+            transition: all 0.4s ease;
+        }
+
+        /* HERO */
+        #hero {
             height: 100vh;
-            min-height: 700px;
+            min-height: 820px;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: var(--azul-petroleo);
         }
 
         .hero-bg {
@@ -348,1633 +199,844 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg,
-                    rgba(10, 74, 94, 0.3) 0%,
-                    rgba(10, 74, 94, 0.1) 40%,
-                    rgba(10, 74, 94, 0.5) 80%,
-                    rgba(10, 74, 94, 0.8) 100%);
-            z-index: 1;
+            background: linear-gradient(rgba(5, 18, 31, 0.38), rgba(5, 18, 31, 0.68)), url('https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/2f338803-272c-4b78-ba89-8d8b03085f7f.jpeg?im_w=1200') center/cover no-repeat;
+            transition: transform 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
             text-align: center;
-            max-width: 900px;
-            padding: 0 30px;
-            animation: heroFadeIn 1.8s ease 0.5s both;
+            max-width: 980px;
+            padding: 0 24px;
         }
 
-        @keyframes heroFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(40px) scale(0.98);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(212, 175, 55, 0.18);
+            color: var(--gold);
+            padding: 10px 32px;
+            border-radius: 60px;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            margin-bottom: 1.8rem;
+            border: 1px solid rgba(212, 175, 55, 0.5);
         }
 
-        .hero-content .badge {
-            display: inline-block;
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            padding: 8px 28px;
-            border-radius: 50px;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            animation: badgePulse 3s ease-in-out infinite;
-        }
-
-        @keyframes badgePulse {
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.2);
-            }
-            50% {
-                box-shadow: 0 0 0 12px rgba(212, 175, 55, 0);
-            }
-        }
-
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3.2rem, 10vw, 6.5rem);
+        .hero-title {
+            font-size: clamp(4.2rem, 9vw, 7.8rem);
             font-weight: 700;
-            font-style: italic;
-            color: var(--branco);
-            line-height: 1;
-            text-shadow: 0 4px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
+            line-height: 1.02;
+            letter-spacing: -5px;
+            margin-bottom: 1.4rem;
+            text-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
         }
 
-        .hero-content h1 span {
-            color: var(--dourado);
-            font-weight: 400;
-        }
-
-        .hero-content p {
-            font-size: clamp(1.1rem, 2vw, 1.4rem);
-            color: rgba(255, 255, 255, 0.85);
+        .hero-subtitle {
+            font-size: 1.85rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
             font-weight: 300;
-            letter-spacing: 1px;
-            max-width: 600px;
-            margin: 0 auto 40px;
         }
 
         .hero-buttons {
             display: flex;
-            flex-wrap: wrap;
+            gap: 1.8rem;
             justify-content: center;
-            gap: 16px;
+            flex-wrap: wrap;
         }
 
         .btn {
+            padding: 18px 48px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 60px;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 16px 40px;
-            border: none;
-            border-radius: 50px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
+            gap: 14px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: pointer;
-            transition: var(--transicao);
-            text-decoration: none;
+            border: none;
             position: relative;
             overflow: hidden;
         }
 
         .btn-primary {
-            background: var(--dourado);
-            color: var(--azul-petroleo);
-            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.35);
+            background: var(--gold);
+            color: #111;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 48px rgba(212, 175, 55, 0.5);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 30px 60px -12px rgb(212 175 55 / 50%);
         }
 
         .btn-secondary {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            color: var(--branco);
+            background: transparent;
+            color: white;
+            border: 2.5px solid rgba(255,255,255,0.85);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+            background: rgba(255,255,255,0.12);
+            border-color: white;
+            transform: translateY(-8px);
         }
 
-        .btn-whatsapp {
-            background: #25d366;
-            color: var(--branco);
-            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.35);
-        }
-
-        .btn-whatsapp:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 48px rgba(37, 211, 102, 0.5);
-        }
-
-        /* ============================================================
-           MENU DE NAVEGAÇÃO
-           ============================================================ */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 20px 40px;
+        .scroll-indicator {
+            position: absolute;
+            bottom: 7vh;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            transition: var(--transicao);
-            background: transparent;
+            gap: 10px;
+            color: rgba(255,255,255,0.75);
+            font-size: 0.95rem;
+            letter-spacing: 3px;
         }
 
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
-            padding: 14px 40px;
-        }
-
-        .navbar .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            font-style: italic;
-            color: var(--branco);
-            text-decoration: none;
-            transition: var(--transicao);
-            letter-spacing: 2px;
-        }
-
-        .navbar.scrolled .logo {
-            color: var(--azul-petroleo);
-        }
-
-        .navbar .logo span {
-            color: var(--dourado);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.85);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: var(--transicao);
+        .scroll-dot {
+            width: 20px;
+            height: 32px;
+            border: 2.5px solid rgba(255,255,255,0.7);
+            border-radius: 30px;
             position: relative;
-            letter-spacing: 0.5px;
         }
 
-        .nav-links a::after {
+        .scroll-dot::after {
             content: '';
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--dourado);
-            transition: var(--transicao);
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: scrollAnim 2.2s infinite;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        @keyframes scrollAnim {
+            0% { transform: translate(-50%, 0); opacity: 1; }
+            100% { transform: translate(-50%, 22px); opacity: 0; }
         }
 
-        .navbar.scrolled .nav-links a {
-            color: var(--azul-petroleo);
-        }
-
-        .nav-links a:hover {
-            color: var(--dourado);
-        }
-
-        .nav-links .btn-nav {
-            background: var(--dourado);
-            color: var(--azul-petroleo) !important;
-            padding: 10px 28px;
-            border-radius: 50px;
-            font-weight: 600;
-        }
-
-        .nav-links .btn-nav::after {
-            display: none;
-        }
-
-        .nav-links .btn-nav:hover {
-            background: var(--dourado-suave);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            z-index: 1001;
-        }
-
-        .menu-toggle span {
-            display: block;
-            width: 28px;
-            height: 2px;
-            background: var(--branco);
-            transition: var(--transicao);
-            border-radius: 4px;
-        }
-
-        .navbar.scrolled .menu-toggle span {
-            background: var(--azul-petroleo);
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* ============================================================
-           SEÇÕES GERAIS
-           ============================================================ */
-        .section {
-            padding: 100px 40px;
-            max-width: 1280px;
-            margin: 0 auto;
+        /* SECTIONS */
+        section {
+            padding: 150px 6%;
+            position: relative;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 5.5rem;
         }
 
-        .section-header .tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--dourado);
-            background: rgba(212, 175, 55, 0.1);
-            padding: 6px 20px;
-            border-radius: 50px;
-            margin-bottom: 16px;
-        }
-
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.4rem, 5vw, 3.8rem);
+        .section-title {
+            font-size: 3.4rem;
             font-weight: 700;
-            color: var(--azul-petroleo);
-            line-height: 1.1;
+            letter-spacing: -2.5px;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(90deg, #fff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .section-header h2 span {
-            color: var(--dourado);
+        .section-subtitle {
+            max-width: 680px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+            opacity: 0.85;
         }
 
-        .section-header p {
-            color: var(--cinza-texto);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 16px auto 0;
-            font-weight: 300;
-        }
-
-        /* ============================================================
-           SEÇÃO SOBRE
-           ============================================================ */
+        /* SOBRE */
         #sobre {
-            padding-top: 120px;
+            background: linear-gradient(to bottom, #05121F, #0A2540);
         }
 
         .sobre-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 7rem;
             align-items: center;
         }
 
-        .sobre-imagem {
-            position: relative;
-            border-radius: var(--raio);
-            overflow: hidden;
-            box-shadow: var(--sombra);
-        }
-
-        .sobre-imagem img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            display: block;
-            transition: var(--transicao);
-        }
-
-        .sobre-imagem:hover img {
-            transform: scale(1.03);
-        }
-
-        .sobre-imagem .badge-img {
-            position: absolute;
-            bottom: 24px;
-            left: 24px;
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 20px 28px;
-            color: var(--branco);
-        }
-
-        .sobre-imagem .badge-img strong {
-            display: block;
-            font-size: 1.8rem;
-            font-weight: 700;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .sobre-imagem .badge-img span {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .sobre-texto h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--azul-petroleo);
-            margin-bottom: 20px;
-        }
-
-        .sobre-texto h3 span {
-            color: var(--dourado);
-        }
-
-        .sobre-texto p {
-            color: var(--cinza-texto);
-            font-size: 1.05rem;
+        .sobre-text {
+            font-size: 1.38rem;
             line-height: 1.8;
-            margin-bottom: 24px;
         }
 
-        .sobre-features {
+        .sobre-text p {
+            margin-bottom: 2rem;
+        }
+
+        .highlight-stats {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3.5rem;
         }
 
-        .sobre-features .feature {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            background: var(--cinza-claro);
-            border-radius: 12px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: var(--transicao);
-        }
-
-        .sobre-features .feature:hover {
-            background: rgba(212, 175, 55, 0.08);
-            transform: translateX(4px);
-        }
-
-        .sobre-features .feature .icon {
-            font-size: 1.3rem;
-            width: 32px;
+        .stat-item {
             text-align: center;
         }
 
-        /* ============================================================
-           SEÇÃO COMODIDADES
-           ============================================================ */
-        #comodidades {
-            background: var(--cinza-claro);
-            padding: 100px 40px;
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
         }
 
-        #comodidades .section {
-            padding: 0;
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .comodidades-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-        }
-
-        .comodidade-card {
-            background: var(--branco);
-            padding: 32px 24px;
-            border-radius: var(--raio);
-            text-align: center;
-            box-shadow: var(--sombra-suave);
-            transition: var(--transicao);
-            border: 1px solid rgba(0, 0, 0, 0.03);
-            cursor: default;
-        }
-
-        .comodidade-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--sombra);
-            border-color: var(--dourado);
-        }
-
-        .comodidade-card .icon {
-            font-size: 2.8rem;
-            margin-bottom: 16px;
-            display: block;
-            transition: var(--transicao);
-        }
-
-        .comodidade-card:hover .icon {
-            transform: scale(1.15) rotate(-4deg);
-        }
-
-        .comodidade-card h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--azul-petroleo);
-        }
-
-        .comodidade-card p {
-            font-size: 0.85rem;
-            color: var(--cinza-texto);
-            margin-top: 4px;
-        }
-
-        /* ============================================================
-           SEÇÃO GALERIA
-           ============================================================ */
+        /* GALERIA */
         #galeria {
-            padding: 100px 40px;
+            background: var(--deep-ocean);
         }
 
-        #galeria .section {
-            padding: 0;
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .galeria-mosaico {
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: 240px;
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 1.4rem;
         }
 
-        .galeria-mosaico .item {
-            border-radius: var(--raio);
-            overflow: hidden;
-            cursor: pointer;
+        .gallery-item {
             position: relative;
-            box-shadow: var(--sombra-suave);
-            transition: var(--transicao);
+            border-radius: 26px;
+            overflow: hidden;
+            height: 460px;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
         }
 
-        .galeria-mosaico .item:hover {
-            transform: scale(1.02);
-            box-shadow: var(--sombra);
-            z-index: 2;
+        .gallery-item:hover {
+            transform: scale(1.035) translateY(-18px);
+            box-shadow: 0 45px 80px rgba(212, 175, 55, 0.28);
         }
 
-        .galeria-mosaico .item img {
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transicao);
+            transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .galeria-mosaico .item:hover img {
-            transform: scale(1.08);
+        .gallery-item:hover img {
+            transform: scale(1.18);
         }
 
-        .galeria-mosaico .item:nth-child(1) {
-            grid-column: span 2;
-            grid-row: span 2;
-        }
-        .galeria-mosaico .item:nth-child(2) {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-        .galeria-mosaico .item:nth-child(3) {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-        .galeria-mosaico .item:nth-child(4) {
-            grid-column: span 2;
-            grid-row: span 1;
-        }
-        .galeria-mosaico .item:nth-child(5) {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-        .galeria-mosaico .item:nth-child(6) {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-        .galeria-mosaico .item:nth-child(7) {
-            grid-column: span 2;
-            grid-row: span 1;
-        }
-        .galeria-mosaico .item:nth-child(8) {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-        .galeria-mosaico .item:nth-child(9) {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-
-        .galeria-mosaico .item .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, transparent 60%, rgba(10, 74, 94, 0.6));
-            display: flex;
-            align-items: flex-end;
-            padding: 20px;
-            opacity: 0;
-            transition: var(--transicao);
-        }
-
-        .galeria-mosaico .item:hover .overlay {
-            opacity: 1;
-        }
-
-        .galeria-mosaico .item .overlay span {
-            color: var(--branco);
-            font-weight: 500;
-            font-size: 0.9rem;
-            background: var(--glass);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 6px 18px;
-            border-radius: 50px;
-            border: 1px solid var(--glass-border);
-        }
-
-        /* ============================================================
-           LIGHTBOX DA GALERIA
-           ============================================================ */
-        .lightbox {
+        /* LIGHTBOX */
+        #lightbox {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 9999;
-            display: flex;
+            background: rgba(5, 18, 31, 0.97);
+            display: none;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transicao);
-            padding: 40px;
+            z-index: 99999;
+            backdrop-filter: blur(16px);
         }
 
-        .lightbox.open {
-            opacity: 1;
-            visibility: visible;
+        .lightbox-content {
+            position: relative;
+            max-width: 94%;
+            max-height: 94vh;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 0 100px rgba(0,0,0,0.9);
         }
 
-        .lightbox img {
-            max-width: 90%;
-            max-height: 85%;
+        .lightbox-content img {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 94vh;
             object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
-            transform: scale(0.9);
-            transition: var(--transicao);
         }
 
-        .lightbox.open img {
-            transform: scale(1);
-        }
-
-        .lightbox .close {
+        .lightbox-close {
             position: absolute;
-            top: 30px;
-            right: 40px;
-            font-size: 2.8rem;
-            color: var(--branco);
+            top: 35px;
+            right: 35px;
+            font-size: 3rem;
+            color: white;
             cursor: pointer;
-            background: none;
-            border: none;
-            transition: var(--transicao);
-            opacity: 0.7;
+            z-index: 10;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            transition: all 0.3s;
         }
 
-        .lightbox .close:hover {
-            opacity: 1;
-            transform: rotate(90deg);
+        .lightbox-close:hover {
+            background: var(--gold);
+            color: #111;
         }
 
-        /* ============================================================
-           SEÇÃO LOCALIZAÇÃO
-           ============================================================ */
-        #localizacao {
-            background: var(--azul-petroleo);
-            padding: 100px 40px;
-            position: relative;
-            overflow: hidden;
+        /* COMODIDADES */
+        #comodidades {
+            background: linear-gradient(180deg, #0A2540, #05121F);
         }
 
-        #localizacao::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 70%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        #localizacao .section {
-            padding: 0;
-            max-width: 1280px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        #localizacao .section-header h2 {
-            color: var(--branco);
-        }
-
-        #localizacao .section-header p {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .local-grid {
+        .amenities-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 2.2rem;
         }
 
-        .local-info {
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .local-info h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--branco);
-            margin-bottom: 16px;
-        }
-
-        .local-info h3 span {
-            color: var(--dourado);
-        }
-
-        .local-info p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 24px;
-            font-weight: 300;
-        }
-
-        .local-info .distancias {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .local-info .distancias .dist {
+        .amenity-card {
             background: var(--glass);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 16px 24px;
-            min-width: 120px;
+            backdrop-filter: blur(22px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 30px;
+            padding: 3rem 2.2rem;
+            text-align: center;
+            transition: all 0.6s ease;
+        }
+
+        .amenity-card:hover {
+            transform: translateY(-25px);
+            border-color: var(--gold);
+            box-shadow: 0 35px 70px rgba(212, 175, 55, 0.2);
+        }
+
+        .amenity-icon {
+            font-size: 4.2rem;
+            margin-bottom: 2rem;
+            color: var(--gold);
+        }
+
+        /* LOCALIZAÇÃO */
+        #localizacao {
+            background: var(--ocean);
+        }
+
+        .map-container {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.55);
+            height: 560px;
+            margin-top: 3.5rem;
+        }
+
+        /* RESERVA */
+        #reserva {
+            background: linear-gradient(to right, #05121F, #0A2540);
+        }
+
+        .booking-card {
+            max-width: 680px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.07);
+            backdrop-filter: blur(32px);
+            border: 1.5px solid rgba(212, 175, 55, 0.35);
+            border-radius: 36px;
+            padding: 5rem 4rem;
             text-align: center;
         }
 
-        .local-info .distancias .dist strong {
-            display: block;
-            font-size: 1.6rem;
-            font-family: 'Playfair Display', serif;
-            color: var(--dourado);
+        .booking-card h2 {
+            font-size: 3rem;
+            margin-bottom: 1.2rem;
         }
 
-        .local-info .distancias .dist span {
-            font-size: 0.85rem;
-            opacity: 0.7;
+        .price {
+            font-size: 4.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 2rem 0;
         }
 
-        .local-mapa {
-            border-radius: var(--raio);
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            height: 400px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            font-size: 1.4rem;
+            padding: 24px 70px;
+            margin-top: 2.5rem;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 1.2rem;
+            gap: 18px;
+            border-radius: 60px;
         }
 
-        .local-mapa .placeholder-map {
-            text-align: center;
+        /* CONTATO & FOOTER */
+        footer {
+            background: #03070F;
+            padding: 110px 6% 50px;
         }
 
-        .local-mapa .placeholder-map .icon {
-            font-size: 4rem;
-            display: block;
-            margin-bottom: 12px;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr 1fr 1fr;
+            gap: 4.5rem;
+            margin-bottom: 6rem;
         }
 
-        /* ============================================================
-           SEÇÃO CONTATO
-           ============================================================ */
-        #contato {
-            padding: 100px 40px;
-            text-align: center;
+        .glass {
+            background: rgba(255, 255, 255, 0.09);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        #contato .section {
-            padding: 0;
-            max-width: 700px;
-            margin: 0 auto;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(80px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .contato-card {
-            background: var(--cinza-claro);
-            border-radius: var(--raio);
-            padding: 60px 40px;
-            box-shadow: var(--sombra-suave);
-            border: 1px solid rgba(0, 0, 0, 0.03);
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .contato-card .icon-grande {
-            font-size: 4.5rem;
-            display: block;
-            margin-bottom: 20px;
+        .revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .contato-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--azul-petroleo);
-            margin-bottom: 12px;
-        }
-
-        .contato-card p {
-            color: var(--cinza-texto);
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        .contato-card .btn-whatsapp {
-            font-size: 1.1rem;
-            padding: 18px 50px;
-        }
-
-        /* ============================================================
-           RODAPÉ
-           ============================================================ */
-        .footer {
-            background: var(--azul-petroleo);
-            color: rgba(255, 255, 255, 0.6);
-            padding: 50px 40px 30px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .footer .footer-inner {
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .footer .logo-footer {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            font-style: italic;
-            color: var(--branco);
-            letter-spacing: 2px;
-        }
-
-        .footer .logo-footer span {
-            color: var(--dourado);
-        }
-
-        .footer p {
-            margin-top: 16px;
-            font-size: 0.9rem;
-            font-weight: 300;
-        }
-
-        .footer .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer .footer-links a {
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: var(--transicao);
-        }
-
-        .footer .footer-links a:hover {
-            color: var(--dourado);
-        }
-
-        .footer .footer-divider {
-            width: 60px;
-            height: 2px;
-            background: var(--dourado);
-            margin: 20px auto;
-            opacity: 0.3;
-        }
-
-        /* ============================================================
-           RESPONSIVO
-           ============================================================ */
         @media (max-width: 1024px) {
-            .sobre-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .sobre-imagem img {
-                height: 400px;
-            }
-
-            .local-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .galeria-mosaico {
-                grid-template-columns: repeat(3, 1fr);
-                grid-auto-rows: 200px;
-            }
-
-            .galeria-mosaico .item:nth-child(1) {
-                grid-column: span 2;
-                grid-row: span 2;
-            }
-            .galeria-mosaico .item:nth-child(4) {
-                grid-column: span 2;
-                grid-row: span 1;
-            }
-            .galeria-mosaico .item:nth-child(7) {
-                grid-column: span 2;
-                grid-row: span 1;
-            }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .sobre-grid { grid-template-columns: 1fr; gap: 4rem; }
         }
 
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 16px 20px;
-            }
-
-            .navbar.scrolled {
-                padding: 12px 20px;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                max-width: 320px;
-                height: 100vh;
-                background: var(--branco);
-                flex-direction: column;
-                justify-content: center;
-                gap: 24px;
-                padding: 40px;
-                box-shadow: -8px 0 40px rgba(0, 0, 0, 0.08);
-                transition: var(--transicao);
-            }
-
-            .nav-links.open {
-                right: 0;
-            }
-
-            .nav-links a {
-                color: var(--azul-petroleo) !important;
-                font-size: 1.1rem;
-            }
-
-            .nav-links .btn-nav {
-                background: var(--dourado);
-                color: var(--azul-petroleo) !important;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .hero-content h1 {
-                font-size: clamp(2.4rem, 12vw, 3.5rem);
-            }
-
-            .section {
-                padding: 60px 20px;
-            }
-
-            #comodidades {
-                padding: 60px 20px;
-            }
-
-            #localizacao {
-                padding: 60px 20px;
-            }
-
-            .comodidades-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
-
-            .galeria-mosaico {
-                grid-template-columns: repeat(2, 1fr);
-                grid-auto-rows: 160px;
-                gap: 12px;
-            }
-
-            .galeria-mosaico .item:nth-child(1) {
-                grid-column: span 2;
-                grid-row: span 1;
-            }
-            .galeria-mosaico .item:nth-child(4) {
-                grid-column: span 2;
-                grid-row: span 1;
-            }
-            .galeria-mosaico .item:nth-child(7) {
-                grid-column: span 2;
-                grid-row: span 1;
-            }
-            .galeria-mosaico .item:nth-child(2),
-            .galeria-mosaico .item:nth-child(3),
-            .galeria-mosaico .item:nth-child(5),
-            .galeria-mosaico .item:nth-child(6),
-            .galeria-mosaico .item:nth-child(8),
-            .galeria-mosaico .item:nth-child(9) {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-
-            .sobre-features {
-                grid-template-columns: 1fr;
-            }
-
-            .sobre-imagem .badge-img {
-                bottom: 16px;
-                left: 16px;
-                padding: 14px 20px;
-            }
-
-            .sobre-imagem .badge-img strong {
-                font-size: 1.4rem;
-            }
-
-            .local-info .distancias {
-                gap: 12px;
-            }
-
-            .local-info .distancias .dist {
-                min-width: 80px;
-                padding: 12px 16px;
-            }
-
-            .local-info .distancias .dist strong {
-                font-size: 1.2rem;
-            }
-
-            .contato-card {
-                padding: 40px 24px;
-            }
-
-            .contato-card .btn-whatsapp {
-                padding: 16px 32px;
-                font-size: 1rem;
-            }
-
-            .footer {
-                padding: 40px 20px 24px;
-            }
-
-            .footer .footer-links {
-                gap: 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content .badge {
-                font-size: 0.65rem;
-                padding: 6px 18px;
-                letter-spacing: 2px;
-            }
-
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .hero-content p {
-                font-size: 0.95rem;
-            }
-
-            .btn {
-                padding: 14px 28px;
-                font-size: 0.9rem;
-            }
-
-            .section-header h2 {
-                font-size: 1.8rem;
-            }
-
-            .comodidades-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-
-            .comodidade-card {
-                padding: 20px 16px;
-            }
-
-            .comodidade-card .icon {
-                font-size: 2rem;
-            }
-
-            .galeria-mosaico {
-                grid-auto-rows: 120px;
-                gap: 8px;
-            }
-
-            .local-mapa {
-                height: 250px;
-            }
-
-            .sobre-imagem img {
-                height: 280px;
-            }
-
-            .lightbox {
-                padding: 20px;
-            }
-
-            .lightbox .close {
-                top: 16px;
-                right: 20px;
-                font-size: 2rem;
-            }
+        @media (max-width: 640px) {
+            section { padding: 100px 6%; }
+            .hero-title { font-size: 3.6rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================
-    TELA DE CARREGAMENTO
-    ============================================================ -->
-    <div id="loading-screen">
-        <div class="wave-bg">
-            <svg viewBox="0 0 1200 300" preserveAspectRatio="none">
-                <path d="M0,150 C200,50 400,250 600,150 C800,50 1000,250 1200,150 L1200,300 L0,300 Z" fill="rgba(255,255,255,0.08)"/>
-            </svg>
-            <svg viewBox="0 0 1200 300" preserveAspectRatio="none">
-                <path d="M0,180 C200,80 400,280 600,180 C800,80 1000,280 1200,180 L1200,300 L0,300 Z" fill="rgba(255,255,255,0.05)"/>
-            </svg>
-            <svg viewBox="0 0 1200 300" preserveAspectRatio="none">
-                <path d="M0,210 C200,110 400,310 600,210 C800,110 1000,310 1200,210 L1200,300 L0,300 Z" fill="rgba(255,255,255,0.03)"/>
-            </svg>
-        </div>
-        <div class="particles">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-        </div>
-        <div class="loading-content">
-            <div class="subtitle">Bem-vindo ao paraíso</div>
-            <h1>CASA<br>POR <span>TEMPORADA</span></h1>
-            <div class="loading-bar"></div>
+    <!-- LOADER -->
+    <div id="loader">
+        <canvas id="waveCanvas" width="1920" height="1080"></canvas>
+        <div class="loader-content">
+            <div class="logo-loader">CASA</div>
+            <div class="tagline-loader">POR TEMPORADA</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+            <p style="margin-top: 2rem; font-size: 1rem; letter-spacing: 5px; opacity: 0.75;">NOVA GUARAPARI • PRAIA DE PERACANGA</p>
         </div>
     </div>
 
-    <!-- ============================================================
-    CONTEÚDO PRINCIPAL
-    ============================================================ -->
-    <div id="main-content">
+    <!-- NAV -->
+    <nav id="navbar">
+        <a href="#" class="logo">CASA<span>PERACANGA</span></a>
+        
+        <ul class="nav-links">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#comodidades">Comodidades</a></li>
+            <li><a href="#localizacao">Localização</a></li>
+            <li><a href="#reserva">Reservar</a></li>
+        </ul>
 
-        <!-- ============================================================
-        MENU DE NAVEGAÇÃO
-        ============================================================ -->
-        <nav class="navbar" id="navbar">
-            <a href="#" class="logo">CASA<span>POR</span></a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#comodidades">Comodidades</a></li>
-                <li><a href="#galeria">Galeria</a></li>
-                <li><a href="#localizacao">Localização</a></li>
-                <li><a href="#contato" class="btn-nav">Reservar</a></li>
-            </ul>
-            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </nav>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
 
-        <!-- ============================================================
-        HERO
-        ============================================================ -->
-        <section class="hero" id="hero">
-            <!-- Substitua o src pela sua imagem principal -->
-            <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/2f338803-272c-4b78-ba89-8d8b03085f7f.jpeg?im_w=1200" alt="Casa na Praia de Peracanga" class="hero-bg">
-            <div class="hero-content">
-                <span class="badge">✦ Praia de Peracanga</span>
-                <h1>Sua casa<br>à <span>beira-mar</span></h1>
-                <p>Nova Guarapari • Apenas 10 passos da praia • Para 8 hóspedes</p>
-                <div class="hero-buttons">
-                    <a href="#contato" class="btn btn-primary">📅 Reservar agora</a>
-                    <a href="#galeria" class="btn btn-secondary">📸 Ver fotos</a>
-                </div>
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fa-solid fa-star"></i> 
+                EXCLUSIVIDADE À BEIRA-MAR
             </div>
-        </section>
-
-        <!-- ============================================================
-        SEÇÃO SOBRE
-        ============================================================ -->
-        <section class="section" id="sobre">
-            <div class="section-header">
-                <span class="tag">✦ Sobre a casa</span>
-                <h2>Um refúgio <span>à beira-mar</span></h2>
-                <p>Crie memórias inesquecíveis nesta aconchegante casa de praia familiar</p>
+            <h1 class="hero-title">Casa por Temporada</h1>
+            <p class="hero-subtitle">Nova Guarapari • Praia de Peracanga</p>
+            
+            <div class="hero-buttons">
+                <a href="#reserva" class="btn btn-primary" onclick="scrollToSection('reserva')">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Reservar Agora
+                </a>
+                <a href="#galeria" class="btn btn-secondary" onclick="scrollToSection('galeria')">
+                    Explorar Galeria
+                </a>
             </div>
-            <div class="sobre-grid">
-                <div class="sobre-imagem">
-                    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/dbb2be19-6a53-4262-bb35-40f815bad53a.jpeg?im_w=720" alt="Vista da casa">
-                    <div class="badge-img">
-                        <strong>10 passos</strong>
-                        <span>da Praia de Peracanga</span>
-                    </div>
-                </div>
-                <div class="sobre-texto">
-                    <h3>Nova Guarapari, <span>Espírito Santo</span></h3>
-                    <p>
-                        Acomodando confortavelmente até <strong>8 hóspedes</strong>, a casa dispõe de <strong>2 quartos</strong>, 
-                        <strong>3 banheiros</strong>, incluindo uma suíte queen, além de um segundo quarto com várias camas, 
-                        ideal para famílias.
-                    </p>
-                    <p>
-                        Desfrute de uma <strong>cozinha totalmente equipada</strong>, Wi-Fi, área de lavanderia e 
-                        estacionamento para até 3 carros. Uma localização imbatível oferece acesso à praia a apenas 
-                        <strong>10 passos de distância</strong>, perfeita para relaxar dias à beira-mar.
-                    </p>
-                    <div class="sobre-features">
-                        <div class="feature"><span class="icon">🛏️</span> 2 quartos</div>
-                        <div class="feature"><span class="icon">🚿</span> 3 banheiros</div>
-                        <div class="feature"><span class="icon">👨‍👩‍👧‍👦</span> 8 hóspedes</div>
-                        <div class="feature"><span class="icon">🚗</span> 3 vagas</div>
-                        <div class="feature"><span class="icon">📶</span> Wi-Fi</div>
-                        <div class="feature"><span class="icon">❄️</span> Ar-condicionado</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-        SEÇÃO COMODIDADES
-        ============================================================ -->
-        <section id="comodidades">
-            <div class="section">
-                <div class="section-header">
-                    <span class="tag">✦ Comodidades</span>
-                    <h2>Tudo o que você <span>precisa</span></h2>
-                    <p>Equipamentos e serviços para uma estadia perfeita</p>
-                </div>
-                <div class="comodidades-grid">
-                    <div class="comodidade-card">
-                        <span class="icon">🏖️</span>
-                        <h4>Acesso à praia</h4>
-                        <p>10 passos de distância</p>
-                    </div>
-                    <div class="comodidade-card">
-                        <span class="icon">🍳</span>
-                        <h4>Cozinha completa</h4>
-                        <p>Totalmente equipada</p>
-                    </div>
-                    <div class="comodidade-card">
-                        <span class="icon">📶</span>
-                        <h4>Wi-Fi</h4>
-                        <p>Internet de alta velocidade</p>
-                    </div>
-                    <div class="comodidade-card">
-                        <span class="icon">🅿️</span>
-                        <h4>Estacionamento</h4>
-                        <p>3 vagas gratuitas</p>
-                    </div>
-                    <div class="comodidade-card">
-                        <span class="icon">❄️</span>
-                        <h4>Ar-condicionado</h4>
-                        <p>Em todos os cômodos</p>
-                    </div>
-                    <div class="comodidade-card">
-                        <span class="icon">🧺</span>
-                        <h4>Lavanderia</h4>
-                        <p>Área completa</p>
-                    </div>
-                    <div class="comodidade-card">
-                        <span class="icon">🛏️</span>
-                        <h4>Suíte Queen</h4>
-                        <p>Cama king size</p>
-                    </div>
-                    <div class="comodidade-card">
-                        <span class="icon">☕</span>
-                        <h4>Café da manhã</h4>
-                        <p>Cafeteira elétrica</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-        SEÇÃO GALERIA
-        ============================================================ -->
-        <section id="galeria">
-            <div class="section">
-                <div class="section-header">
-                    <span class="tag">✦ Galeria</span>
-                    <h2>Veja os <span>detalhes</span></h2>
-                    <p>Clique em qualquer foto para ampliar</p>
-                </div>
-                <div class="galeria-mosaico">
-                    <div class="item">
-                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/2f338803-272c-4b78-ba89-8d8b03085f7f.jpeg?im_w=720" alt="Sala de estar">
-                        <div class="overlay"><span>Sala de estar</span></div>
-                    </div>
-                    <div class="item">
-                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/dbb2be19-6a53-4262-bb35-40f815bad53a.jpeg?im_w=720" alt="Sala de estar 2">
-                        <div class="overlay"><span>Sala de estar</span></div>
-                    </div>
-                    <div class="item">
-                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/795a1f7e-d26b-47de-b1e9-81725c8cbf98.jpeg?im_w=720" alt="Cozinha">
-                        <div class="overlay"><span>Cozinha</span></div>
-                    </div>
-                    <div class="item">
-                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/88807488-0cca-4008-a09c-be7bca8d44e3.jpeg?im_w=720" alt="Quarto">
-                        <div class="overlay"><span>Quarto</span></div>
-                    </div>
-                    <div class="item">
-                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/69dd3da9-4d77-4b47-ad24-93586cc1b7e6.jpeg?im_w=720" alt="Banheiro">
-                        <div class="overlay"><span>Banheiro</span></div>
-                    </div>
-                    <div class="item">
-                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/6dd73f4d-c142-4829-9c55-f89c9c119cf9.jpeg?im_w=720" alt="Área de jantar">
-                        <div class="overlay"><span>Área de jantar</span></div>
-                    </div>
-                    <div class="item">
-                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/84d6cfc4-e348-4f5c-9c64-4c23205d9c6c.jpeg?im_w=720" alt="Cozinha 2">
-                        <div class="overlay"><span>Cozinha</span></div>
-                    </div>
-                    <div class="item">
-                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/19cb30f7-e542-4d81-bcf2-6594a9291ab3.jpeg?im_w=720" alt="Banheiro 2">
-                        <div class="overlay"><span>Banheiro</span></div>
-                    </div>
-                    <div class="item">
-                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/b73cbed6-5761-4c90-b3f3-083717b26640.jpeg?im_w=720" alt="Lavanderia">
-                        <div class="overlay"><span>Lavanderia</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-        LIGHTBOX
-        ============================================================ -->
-        <div class="lightbox" id="lightbox">
-            <button class="close" id="lightboxClose">✕</button>
-            <img src="" alt="Foto ampliada" id="lightboxImg">
         </div>
 
-        <!-- ============================================================
-        SEÇÃO LOCALIZAÇÃO
-        ============================================================ -->
-        <section id="localizacao">
-            <div class="section">
-                <div class="section-header">
-                    <span class="tag">✦ Localização</span>
-                    <h2>Onde <span>ficamos</span></h2>
-                    <p>Nova Guarapari, Praia de Peracanga</p>
-                </div>
-                <div class="local-grid">
-                    <div class="local-info">
-                        <h3>Praia de <span>Peracanga</span></h3>
-                        <p>
-                            Localizada em Nova Guarapari, a Praia de Peracanga é um dos destinos mais tranquilos 
-                            e belos do Espírito Santo. Com águas calmas e areias douradas, é o cenário perfeito 
-                            para dias de descanso e lazer em família.
-                        </p>
-                        <div class="distancias">
-                            <div class="dist">
-                                <strong>10</strong>
-                                <span>passos da praia</span>
-                            </div>
-                            <div class="dist">
-                                <strong>5</strong>
-                                <span>min do centro</span>
-                            </div>
-                            <div class="dist">
-                                <strong>30</strong>
-                                <span>min de Vitória</span>
-                            </div>
-                        </div>
+        <div class="scroll-indicator">
+            <div>ROLE PARA EXPLORAR</div>
+            <div class="scroll-dot"></div>
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+        <div class="section-header">
+            <h2 class="section-title">Uma Joia à Beira-Mar</h2>
+            <p class="section-subtitle">A poucos passos da Praia de Peracanga, esta casa oferece conforto premium, design contemporâneo e uma vista privilegiada para o oceano.</p>
+        </div>
+
+        <div class="sobre-grid">
+            <div>
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/dbb2be19-6a53-4262-bb35-40f815bad53a.jpeg?im_w=1200" 
+                     alt="Interior luxuoso" 
+                     style="width:100%; border-radius: 28px; box-shadow: 0 30px 70px rgba(0,0,0,0.5);">
+            </div>
+            <div class="sobre-text">
+                <p>Com arquitetura moderna e acabamentos refinados, a Casa por Temporada foi pensada para proporcionar o máximo de conforto para até 8 hóspedes.</p>
+                <p>Dois quartos amplos (sendo um com suíte queen), três banheiros completos, cozinha gourmet totalmente equipada, sala de estar integrada e garagem para três carros tornam esta propriedade única em Nova Guarapari.</p>
+                <p>Anfitrião: <strong>Shawn Laser</strong></p>
+                
+                <div class="highlight-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div>Hóspedes</div>
                     </div>
-                    <div class="local-mapa">
-                        <div class="placeholder-map">
-                            <span class="icon">🗺️</span>
-                            <p>Praia de Peracanga<br>Nova Guarapari - ES</p>
-                            <small style="opacity:0.5;">Mapa interativo disponível</small>
-                        </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div>Quartos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div>Banheiros</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div>Vagas</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ============================================================
-        SEÇÃO CONTATO
-        ============================================================ -->
-        <section id="contato">
-            <div class="section">
-                <div class="section-header">
-                    <span class="tag">✦ Contato</span>
-                    <h2>Garanta sua <span>estadia</span></h2>
-                    <p>Fale conosco e reserve sua temporada</p>
-                </div>
-                <div class="contato-card">
-                    <span class="icon-grande">🏖️</span>
-                    <h3>Reserve agora!</h3>
-                    <p>
-                        Clique no botão abaixo e envie uma mensagem direta pelo WhatsApp.<br>
-                        Respondemos rapidamente!
-                    </p>
-                    <a href="https://wa.me/5527995088540?text=Ol%C3%A1%2C%20gostaria%20de%20reservar%20a%20casa%20na%20Praia%20de%20Peracanga!" 
-                       target="_blank" 
-                       class="btn btn-whatsapp">
-                        💬 Fale conosco no WhatsApp
-                    </a>
-                    <p style="margin-top: 16px; font-size: 0.9rem; color: var(--cinza-texto);">
-                        📞 +55 27 99508-8540
-                    </p>
-                </div>
+    <!-- GALERIA -->
+    <section id="galeria">
+        <div class="section-header">
+            <h2 class="section-title">Galeria da Casa</h2>
+            <p class="section-subtitle">Imagens reais da propriedade</p>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Populated by JS with real images -->
+        </div>
+    </section>
+
+    <!-- COMODIDADES -->
+    <section id="comodidades">
+        <div class="section-header">
+            <h2 class="section-title">Comodidades</h2>
+        </div>
+
+        <div class="amenities-grid">
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fa-solid fa-wifi"></i></div>
+                <h3>Wi-Fi Fibra</h3>
+                <p>Internet de alta velocidade em todos os ambientes.</p>
             </div>
-        </section>
-
-        <!-- ============================================================
-        RODAPÉ
-        ============================================================ -->
-        <footer class="footer">
-            <div class="footer-inner">
-                <div class="logo-footer">CASA<span>POR</span></div>
-                <div class="footer-divider"></div>
-                <p>
-                    Praia de Peracanga • Nova Guarapari • Espírito Santo<br>
-                    © 2026 Casa por Temporada • Todos os direitos reservados
-                </p>
-                <div class="footer-links">
-                    <a href="#sobre">Sobre</a>
-                    <a href="#comodidades">Comodidades</a>
-                    <a href="#galeria">Galeria</a>
-                    <a href="#localizacao">Localização</a>
-                    <a href="#contato">Contato</a>
-                </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fa-solid fa-snowflake"></i></div>
+                <h3>Ar-Condicionado</h3>
+                <p>Climatização central e individual.</p>
             </div>
-        </footer>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fa-solid fa-kitchen-set"></i></div>
+                <h3>Cozinha Completa</h3>
+                <p>Equipada com todos os utensílios premium.</p>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fa-solid fa-shirt"></i></div>
+                <h3>Lavanderia</h3>
+                <p>Máquina de lavar e secadora.</p>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fa-solid fa-bed"></i></div>
+                <h3>Suíte Queen</h3>
+                <p>Conforto máximo nos quartos.</p>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fa-solid fa-car"></i></div>
+                <h3>Garagem para 3 carros</h3>
+                <p>Estacionamento privativo e coberto.</p>
+            </div>
+        </div>
+    </section>
 
+    <!-- LOCALIZAÇÃO -->
+    <section id="localizacao">
+        <div class="section-header">
+            <h2 class="section-title">Localização</h2>
+            <p class="section-subtitle">Praia de Peracanga, Nova Guarapari — Aproximadamente 10 passos da praia</p>
+        </div>
+
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.5!2d-40.5!3d-20.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDM5JzAwLjAiUyA0MMKwMzAnMDAuMCJX!5e0!3m2!1spt-BR!2sbr!4v1720000000000" 
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <!-- RESERVA -->
+    <section id="reserva">
+        <div class="booking-card glass">
+            <h2>Reserve sua Estadia</h2>
+            <p style="font-size: 1.4rem; margin-bottom: 2.5rem; opacity: 0.9;">Experiência premium com atendimento direto do anfitrião</p>
+            
+            <div class="price">R$ 890 <span style="font-size:1.2rem; font-weight:400;">/noite</span></div>
+            
+            <a href="https://wa.me/5527995088540" target="_blank" class="btn whatsapp-btn">
+                <i class="fa-brands fa-whatsapp fa-2xl"></i>
+                <span>Reservar via WhatsApp</span>
+            </a>
+            
+            <p style="margin-top: 3rem; opacity: 0.8;">Anfitrião: Shawn Laser</p>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" style="background: var(--deep-ocean);">
+        <div class="section-header">
+            <h2 class="section-title">Fale com o Anfitrião</h2>
+        </div>
+        <div style="max-width: 760px; margin: 0 auto; text-align: center;">
+            <a href="https://wa.me/5527995088540" target="_blank" style="display: inline-flex; align-items: center; gap: 20px; background: #25D366; color: white; padding: 22px 60px; border-radius: 60px; font-size: 1.45rem; text-decoration: none;">
+                <i class="fa-brands fa-whatsapp fa-3x"></i>
+                <div>
+                    <strong>+55 27 99508-8540</strong><br>
+                    <span style="opacity: 0.9;">Conversar com Shawn Laser</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="logo" style="font-size: 2.4rem; margin-bottom: 1.8rem;">CASA<span>PERACANGA</span></div>
+                <p style="max-width: 380px; opacity: 0.8;">Luxo autêntico a poucos passos da Praia de Peracanga, Nova Guarapari.</p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1.8rem; color: var(--gold);">Menu</h4>
+                <ul style="list-style: none; line-height: 2.4;">
+                    <li><a href="#sobre" style="color:inherit; text-decoration:none;">Sobre</a></li>
+                    <li><a href="#galeria" style="color:inherit; text-decoration:none;">Galeria</a></li>
+                    <li><a href="#comodidades" style="color:inherit; text-decoration:none;">Comodidades</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1.8rem; color: var(--gold);">Contato</h4>
+                <p>Shawn Laser</p>
+                <p><a href="https://wa.me/5527995088540" style="color:inherit;">+55 27 99508-8540</a></p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1.8rem; color: var(--gold);">Legal</h4>
+                <p>© 2026 Casa por Temporada</p>
+            </div>
+        </div>
+        
+        <div style="text-align:center; padding-top: 4rem; border-top: 1px solid rgba(255,255,255,0.08); opacity: 0.6;">
+            Feito com exclusividade para sua experiência inesquecível
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+            <img id="lightboxImage" src="" alt="Imagem da casa">
+        </div>
     </div>
 
-    <!-- ============================================================
-    JAVASCRIPT
-    ============================================================ -->
     <script>
-        // ============================================================
-        // TELA DE CARREGAMENTO
-        // ============================================================
-        window.addEventListener('load', function() {
-            const loading = document.getElementById('loading-screen');
-            const content = document.getElementById('main-content');
+        // Canvas Wave Animation
+        function initWaveLoader() {
+            const canvas = document.getElementById('waveCanvas');
+            const ctx = canvas.getContext('2d');
+            let w = window.innerWidth;
+            let h = window.innerHeight;
+            canvas.width = w;
+            canvas.height = h;
 
-            setTimeout(function() {
-                loading.classList.add('hidden');
-                content.classList.add('visible');
-            }, 3200);
-        });
+            let t = 0;
 
-        // ============================================================
-        // MENU DE NAVEGAÇÃO - SCROLL E MOBILE
-        // ============================================================
-        const navbar = document.getElementById('navbar');
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                ctx.strokeStyle = 'rgba(212, 175, 55, 0.35)';
+                ctx.lineWidth = 4;
 
-        // Scroll effect
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 80) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+                for (let i = 0; i < 6; i++) {
+                    ctx.beginPath();
+                    for (let x = 0; x < w; x += 6) {
+                        const y = h * 0.65 + Math.sin(x * 0.004 + t + i * 1.3) * 95 + Math.cos(x * 0.007 + t * 0.8) * 45;
+                        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                    }
+                    ctx.stroke();
+                }
+
+                // Water particles
+                ctx.fillStyle = 'rgba(255,255,255,0.85)';
+                for (let i = 0; i < 45; i++) {
+                    const px = Math.random() * w;
+                    const py = h * 0.4 + Math.sin(t + i) * 180;
+                    ctx.fillRect(px, py, 3, 3);
+                }
+
+                t += 0.028;
+                requestAnimationFrame(draw);
             }
-        });
-
-        // Menu mobile toggle
-        menuToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navLinks.classList.toggle('open');
-        });
-
-        // Fechar menu ao clicar em um link
-        document.querySelectorAll('.nav-links a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                menuToggle.classList.remove('active');
-                navLinks.classList.remove('open');
-            });
-        });
-
-        // Fechar menu ao clicar fora
-        document.addEventListener('click', function(e) {
-            if (!navbar.contains(e.target)) {
-                menuToggle.classList.remove('active');
-                navLinks.classList.remove('open');
-            }
-        });
-
-        // ============================================================
-        // LIGHTBOX DA GALERIA
-        // ============================================================
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const lightboxClose = document.getElementById('lightboxClose');
-
-        document.querySelectorAll('.galeria-mosaico .item').forEach(function(item) {
-            item.addEventListener('click', function() {
-                const img = this.querySelector('img');
-                lightboxImg.src = img.src;
-                lightbox.classList.add('open');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        function closeLightbox() {
-            lightbox.classList.remove('open');
-            document.body.style.overflow = 'auto';
+            draw();
         }
 
-        lightboxClose.addEventListener('click', closeLightbox);
+        // Real images from user
+        const realImages = [
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/2f338803-272c-4b78-ba89-8d8b03085f7f.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/dbb2be19-6a53-4262-bb35-40f815bad53a.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/6dd73f4d-c142-4829-9c55-f89c9c119cf9.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/84d6cfc4-e348-4f5c-9c64-4c23205d9c6c.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/795a1f7e-d26b-47de-b1e9-81725c8cbf98.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/19cb30f7-e542-4d81-bcf2-6594a9291ab3.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/b73cbed6-5761-4c90-b3f3-083717b26640.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/88786082-629e-4856-b022-4ed2eb2d5df2.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/d133aaac-8c6d-463e-bcf6-660b8c6e6448.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/69dd3da9-4d77-4b47-ad24-93586cc1b7e6.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/4f2537db-cc67-4d98-94ff-68a7470bb3fc.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/ba56158b-cd1c-4655-9013-44a9d8f8c921.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/5e04c4bb-be8c-43fa-8af6-e6748f03f345.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/88807488-0cca-4008-a09c-be7bca8d44e3.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/8885fe82-0568-4778-8b7c-869e51b7f8ac.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/d98813ec-fc7c-436a-99b6-6858ce2a54bd.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/0e360f77-e756-41f1-bba7-7b15126d74e5.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/abf1d539-9626-4049-94fb-0e49d3a60aef.png?im_w=1200",
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/a597fba0-b956-450b-b5d5-a825dffb3717.jpeg?im_w=1200"
+        ];
 
-        lightbox.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeLightbox();
-            }
-        });
+        function populateGallery() {
+            const container = document.getElementById('galleryGrid');
+            realImages.forEach((url, i) => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `
+                    <img src="${url}" alt="Foto ${i+1} da casa">
+                `;
+                div.onclick = () => openLightbox(url);
+                container.appendChild(div);
+            });
+        }
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            }
-        });
+        // Lightbox
+        function openLightbox(src) {
+            document.getElementById('lightboxImage').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
 
-        // ============================================================
-        // ANIMAÇÃO DE ENTRADA DOS CARDS (Intersection Observer)
-        // ============================================================
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -40px 0px'
-        };
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'visible';
+        }
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        // Navbar
+        function initNavbar() {
+            const nav = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                nav.classList.toggle('scrolled', window.scrollY > 100);
+            });
+        }
+
+        // Scroll reveal
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('revealed');
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('section').forEach(s => {
+                s.classList.add('reveal');
+                observer.observe(s);
+            });
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Hamburger
+        function initHamburger() {
+            const ham = document.getElementById('hamburger');
+            const links = document.querySelector('.nav-links');
+            
+            ham.addEventListener('click', () => {
+                if (links.style.display === 'flex') {
+                    links.style.display = 'none';
+                } else {
+                    links.style.display = 'flex';
+                    links.style.flexDirection = 'column';
+                    links.style.position = 'fixed';
+                    links.style.top = '90px';
+                    links.style.left = '0';
+                    links.style.width = '100%';
+                    links.style.background = 'rgba(5,18,31,0.98)';
+                    links.style.padding = '30px';
                 }
             });
-        }, observerOptions);
+        }
 
-        // Aplicar animação nos cards de comodidades
-        document.querySelectorAll('.comodidade-card').forEach(function(card, index) {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(40px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            card.style.transitionDelay = (index * 0.08) + 's';
-            observer.observe(card);
+        // Form (if needed)
+        function initContact() {
+            console.log('%cSite carregado com todas as imagens reais da propriedade.', 'color: #D4AF37; font-weight: bold;');
+        }
+
+        // Main init
+        window.onload = () => {
+            initWaveLoader();
+            
+            const progressBar = document.getElementById('progress');
+            let prog = 0;
+            const int = setInterval(() => {
+                prog += 12 + Math.random() * 14;
+                if (prog >= 100) {
+                    prog = 100;
+                    clearInterval(int);
+                    setTimeout(() => {
+                        document.getElementById('loader').style.opacity = '0';
+                        setTimeout(() => document.getElementById('loader').style.display = 'none', 1200);
+                    }, 400);
+                }
+                progressBar.style.width = prog + '%';
+            }, 90);
+
+            initNavbar();
+            populateGallery();
+            initReveal();
+            initHamburger();
+            initContact();
+
+            // Hero subtle movement
+            let heroY = 0;
+            window.addEventListener('scroll', () => {
+                heroY = window.scrollY * 0.35;
+                document.getElementById('heroBg').style.transform = `translateY(${heroY}px)`;
+            });
+        };
+
+        // Keyboard support
+        document.addEventListener('keydown', e => {
+            if (e.key === "Escape") closeLightbox();
         });
-
-        // Aplicar animação nas features da seção sobre
-        document.querySelectorAll('.sobre-features .feature').forEach(function(feature, index) {
-            feature.style.opacity = '0';
-            feature.style.transform = 'translateX(-20px)';
-            feature.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            feature.style.transitionDelay = (index * 0.06) + 's';
-            observer.observe(feature);
-        });
-
-        // Aplicar animação nos itens da galeria
-        document.querySelectorAll('.galeria-mosaico .item').forEach(function(item, index) {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.92)';
-            item.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-            item.style.transitionDelay = (index * 0.05) + 's';
-            observer.observe(item);
-        });
-
-        // ============================================================
-        // EFEITO PARALLAX NO HERO (suave)
-        // ============================================================
-        const hero = document.querySelector('.hero');
-        const heroBg = document.querySelector('.hero-bg');
-
-        window.addEventListener('scroll', function() {
-            const scrolled = window.scrollY;
-            if (scrolled < hero.offsetHeight) {
-                heroBg.style.transform = 'translateY(' + (scrolled * 0.3) + 'px) scale(1.02)';
-            }
-        });
-
-        // ============================================================
-        // CONSOLE LOG PERSONALIZADO
-        // ============================================================
-        console.log('%c🏠 Casa por Temporada', 'font-size:2rem; font-weight:700; color:#d4af37;');
-        console.log('%c📍 Praia de Peracanga • Nova Guarapari - ES', 'font-size:1rem; color:#0a4a5e;');
-        console.log('%c📞 +55 27 99508-8540', 'font-size:1rem; color:#25d366;');
-        console.log('%c✨ Site premium carregado com sucesso!', 'font-size:1rem; color:#1a2f3a;');
-
-        console.log('========================================');
-        console.log('✅ Todas as funcionalidades ativas:');
-        console.log('   • Tela de carregamento com ondas');
-        console.log('   • Menu transparente → fixo');
-        console.log('   • Galeria com lightbox');
-        console.log('   • Animações com Intersection Observer');
-        console.log('   • Parallax no hero');
-        console.log('   • Design 100% responsivo');
-        console.log('========================================');
     </script>
-
 </body>
 </html>
