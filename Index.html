@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa por Temporada - Nova Guarapari</title>
+    <style>
+        /* ===== RESET E BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            overflow-x: hidden;
+        }
+
+        /* ===== TELA DE CARREGAMENTO ===== */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0b3a5a, #1a6b8a, #2ea3c7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .wave-container {
+            position: relative;
+            width: 200px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wave-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 4px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 2;
+            animation: pulseText 1.8s ease-in-out infinite;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: repeating-linear-gradient(90deg,
+                transparent,
+                transparent 20px,
+                rgba(255,255,255,0.15) 20px,
+                rgba(255,255,255,0.15) 40px);
+            background-size: 200% 100%;
+            border-radius: 50%;
+            animation: waveMove 3s linear infinite;
+        }
+
+        .wave::before,
+        .wave::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: repeating-linear-gradient(90deg,
+                transparent,
+                transparent 25px,
+                rgba(255,255,255,0.08) 25px,
+                rgba(255,255,255,0.08) 50px);
+            background-size: 200% 100%;
+            border-radius: 50%;
+            animation: waveMove 4s linear infinite;
+        }
+
+        .wave::before {
+            top: 10px;
+            animation-duration: 4.5s;
+            opacity: 0.6;
+        }
+
+        .wave::after {
+            top: -10px;
+            animation-duration: 3.5s;
+            opacity: 0.4;
+        }
+
+        @keyframes waveMove {
+            0% { transform: translateX(0) scaleY(0.3); }
+            50% { transform: translateX(-50%) scaleY(0.8); }
+            100% { transform: translateX(-100%) scaleY(0.3); }
+        }
+
+        @keyframes pulseText {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        .loading-sub {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            margin-top: 30px;
+            letter-spacing: 2px;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        #main-content {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        #main-content.visible {
+            opacity: 1;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, #0b3a5a, #1a6b8a);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(90deg,
+                #f7d44a, #f7d44a 20px,
+                transparent 20px, transparent 40px);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .header h1 span {
+            font-weight: 700;
+            color: #f7d44a;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }
+
+        /* ===== NAVEGAÇÃO ===== */
+        .nav-bar {
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .nav-bar a {
+            text-decoration: none;
+            color: #1a2a3a;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-bar a:hover {
+            background: #eef5fa;
+            border-color: #1a6b8a;
+            color: #1a6b8a;
+            transform: translateY(-2px);
+        }
+
+        .nav-bar a.active {
+            background: #1a6b8a;
+            color: #fff;
+        }
+
+        /* ===== SEÇÕES ===== */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #0b3a5a;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #f7d44a;
+            margin: 15px auto 0;
+            border-radius: 4px;
+        }
+
+        /* ===== SOBRE ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .about-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #2a3a4a;
+        }
+
+        .about-text strong {
+            color: #0b3a5a;
+        }
+
+        .about-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .about-gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .about-gallery img:hover {
+            transform: scale(1.03);
+        }
+
+        .about-gallery .big {
+            grid-column: span 2;
+            height: 200px;
+        }
+
+        /* ===== BOTÕES DE AÇÃO ===== */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .action-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px 35px;
+            text-align: center;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+            flex: 1 1 280px;
+            max-width: 400px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 6px solid #f7d44a;
+        }
+
+        .action-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 60px rgba(0,0,0,0.12);
+        }
+
+        .action-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .action-card h3 {
+            font-size: 1.5rem;
+            color: #0b3a5a;
+            margin-bottom: 10px;
+        }
+
+        .action-card p {
+            color: #5a6a7a;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(135deg, #1a6b8a, #0b3a5a);
+            box-shadow: 0 4px 20px rgba(26, 107, 138, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(26, 107, 138, 0.5);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #1a6b8a;
+            border: 3px solid #1a6b8a;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: #1a6b8a;
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(26, 107, 138, 0.3);
+        }
+
+        /* ===== LISTA DE FOTOS ===== */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-grid img:hover {
+            transform: scale(1.04);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #0b3a5a;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .footer strong {
+            color: #fff;
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-gallery {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .about-gallery .big {
+                grid-column: span 2;
+            }
+
+            .nav-bar {
+                gap: 10px;
+                padding: 12px 10px;
+            }
+
+            .nav-bar a {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            .section {
+                padding: 40px 15px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .action-card {
+                padding: 30px 20px;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+            }
+
+            .about-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .about-gallery .big {
+                grid-column: span 1;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== TELA DE CARREGAMENTO ===== -->
+    <div id="loading-screen">
+        <div class="wave-container">
+            <span class="wave-text">🌊</span>
+            <div class="wave"></div>
+        </div>
+        <div style="margin-top: 20px; font-size: 1.8rem; font-weight: 300; color: #fff; letter-spacing: 6px;">
+            CASA POR <span style="font-weight: 700; color: #f7d44a;">TEMPORADA</span>
+        </div>
+        <div class="loading-sub">Carregando experiência...</div>
+    </div>
+
+    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <div id="main-content">
+
+        <!-- HEADER -->
+        <header class="header">
+            <h1>CASA POR <span>TEMPORADA</span></h1>
+            <p>Nova Guarapari • Praia de Peracanga</p>
+        </header>
+
+        <!-- NAVEGAÇÃO -->
+        <nav class="nav-bar" id="navBar">
+            <a href="#sobre" class="active">Sobre</a>
+            <a href="#fotos">Fotos</a>
+            <a href="#reservar">Reservar</a>
+            <a href="#alugar">Alugar</a>
+        </nav>
+
+        <!-- ===== SEÇÃO SOBRE ===== -->
+        <section class="section" id="sobre">
+            <h2 class="section-title">🌴 Sobre a Casa</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p style="font-size: 1.2rem; font-weight: 600; color: #0b3a5a; margin-bottom: 15px;">
+                        🏖️ A poucos passos da Praia de Peracanga
+                    </p>
+                    <p>
+                        <strong>Crie memórias inesquecíveis</strong> nesta aconchegante casa de praia familiar em Nova Guarapari, a poucos passos da Praia de Peracanga. 
+                        Acomodando confortavelmente até <strong>8 hóspedes</strong>, a casa dispõe de <strong>2 quartos</strong>, <strong>3 banheiros</strong>, 
+                        incluindo uma suíte queen, além de um segundo quarto com várias camas, ideal para famílias.
+                    </p>
+                    <p style="margin-top: 15px;">
+                        Desfrute de uma <strong>cozinha totalmente equipada</strong>, Wi-Fi, área de lavanderia e estacionamento para até 3 carros. 
+                        Uma localização imbatível oferece acesso à praia a apenas <strong>10 passos de distância</strong>, perfeita para relaxar dias à beira-mar.
+                    </p>
+                    <div style="margin-top: 25px; display: flex; flex-wrap: wrap; gap: 12px;">
+                        <span style="background: #eef5fa; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem;">🛏️ 2 quartos</span>
+                        <span style="background: #eef5fa; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem;">🚿 3 banheiros</span>
+                        <span style="background: #eef5fa; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem;">👨‍👩‍👧‍👦 8 hóspedes</span>
+                        <span style="background: #eef5fa; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem;">🚗 3 vagas</span>
+                        <span style="background: #eef5fa; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem;">📶 Wi-Fi</span>
+                    </div>
+                </div>
+                <div class="about-gallery">
+                    <!-- Substitua os src pelos links reais das suas fotos -->
+                    <img src="https://via.placeholder.com/400x200/1a6b8a/fff?text=Sala+de+Estar+1" alt="Sala de estar" class="big">
+                    <img src="https://via.placeholder.com/400x200/2ea3c7/fff?text=Sala+2" alt="Sala 2">
+                    <img src="https://via.placeholder.com/400x200/0b3a5a/fff?text=Cozinha" alt="Cozinha">
+                    <img src="https://via.placeholder.com/400x200/1a6b8a/fff?text=Quarto" alt="Quarto">
+                    <img src="https://via.placeholder.com/400x200/2ea3c7/fff?text=Banheiro" alt="Banheiro">
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SEÇÃO FOTOS ===== -->
+        <section class="section" id="fotos" style="background: #f8fafc; border-radius: 40px 40px 0 0;">
+            <h2 class="section-title">📸 Fotos da Casa</h2>
+            <div class="photo-grid" id="photoGrid">
+                <!-- 12 placeholders. Substitua os src pelos links reais -->
+                <img src="https://via.placeholder.com/400x300/1a6b8a/fff?text=Sala+1" alt="Sala 1">
+                <img src="https://via.placeholder.com/400x300/2ea3c7/fff?text=Sala+2" alt="Sala 2">
+                <img src="https://via.placeholder.com/400x300/0b3a5a/fff?text=Sala+3" alt="Sala 3">
+                <img src="https://via.placeholder.com/400x300/1a6b8a/fff?text=Sala+4" alt="Sala 4">
+                <img src="https://via.placeholder.com/400x300/2ea3c7/fff?text=Cozinha+1" alt="Cozinha 1">
+                <img src="https://via.placeholder.com/400x300/0b3a5a/fff?text=Cozinha+2" alt="Cozinha 2">
+                <img src="https://via.placeholder.com/400x300/1a6b8a/fff?text=Jantar+1" alt="Jantar 1">
+                <img src="https://via.placeholder.com/400x300/2ea3c7/fff?text=Jantar+2" alt="Jantar 2">
+                <img src="https://via.placeholder.com/400x300/0b3a5a/fff?text=Banheiro+1" alt="Banheiro 1">
+                <img src="https://via.placeholder.com/400x300/1a6b8a/fff?text=Banheiro+2" alt="Banheiro 2">
+                <img src="https://via.placeholder.com/400x300/2ea3c7/fff?text=Banheiro+3" alt="Banheiro 3">
+                <img src="https://via.placeholder.com/400x300/0b3a5a/fff?text=Lavanderia" alt="Lavanderia">
+            </div>
+            <p style="text-align: center; margin-top: 20px; color: #5a6a7a; font-size: 0.9rem;">
+                📸 55 fotos disponíveis • Passe o mouse para ampliar
+            </p>
+        </section>
+
+        <!-- ===== SEÇÃO RESERVAR ===== -->
+        <section class="section" id="reservar">
+            <h2 class="section-title">📅 Reservar Temporada</h2>
+            <div class="actions">
+                <div class="action-card">
+                    <div class="icon">📆</div>
+                    <h3>Reserve sua data</h3>
+                    <p>Clique no botão abaixo e confirme sua reserva com apenas uma mensagem.</p>
+                    <a href="https://wa.me/5527995088540?text=Olá%2C%20gostaria%20de%20garantir%20a%20reserva!" 
+                       target="_blank" 
+                       class="btn btn-whatsapp">
+                        💬 Reservar agora
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SEÇÃO ALUGAR ===== -->
+        <section class="section" id="alugar" style="background: #f8fafc; border-radius: 40px;">
+            <h2 class="section-title">🔑 Alugar para Temporada</h2>
+            <div class="actions">
+                <div class="action-card" style="border-top-color: #25d366;">
+                    <div class="icon">🏖️</div>
+                    <h3>Alugue a casa</h3>
+                    <p>Interessado em alugar a casa por temporada? Entre em contato agora mesmo!</p>
+                    <a href="https://wa.me/5527995088540?text=Olá%2C%20gostaria%20de%20alugar%20a%20casa%20pra%20temporada!" 
+                       target="_blank" 
+                       class="btn btn-whatsapp">
+                        💬 Quero alugar
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>
+                <strong>Casa por Temporada</strong> • Nova Guarapari • Praia de Peracanga<br>
+                © 2026 • Todos os direitos reservados
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- ===== SCRIPT ===== -->
+    <script>
+        // ===== TELA DE CARREGAMENTO =====
+        window.addEventListener('load', function() {
+            const loading = document.getElementById('loading-screen');
+            const content = document.getElementById('main-content');
+
+            // Tempo mínimo de exibição para o efeito (2.5s)
+            setTimeout(function() {
+                loading.classList.add('hidden');
+                content.classList.add('visible');
+            }, 2500);
+        });
+
+        // ===== NAVEGAÇÃO COM SCROLL SUAVE E DESTAQUE =====
+        const navLinks = document.querySelectorAll('.nav-bar a');
+        const sections = document.querySelectorAll('.section');
+
+        function updateActiveLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+
+        // Scroll suave ao clicar nos links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ===== CLICK NAS FOTOS ABRE EM TELA CHEIA (opcional) =====
+        document.querySelectorAll('.about-gallery img, .photo-grid img').forEach(img => {
+            img.addEventListener('click', function() {
+                // Abre a imagem em nova aba (simples)
+                window.open(this.src, '_blank');
+            });
+        });
+
+        console.log('🏠 Casa por Temporada - Site carregado com sucesso!');
+        console.log('📞 Contato: +55 27 99508-8540');
+    </script>
+
+</body>
+</html>
