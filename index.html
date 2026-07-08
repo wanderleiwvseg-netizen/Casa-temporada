@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -45,9 +45,6 @@
             line-height: 1.6;
         }
 
-        /* ============================================================
-           SCROLLBAR PERSONALIZADA
-           ============================================================ */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -87,7 +84,6 @@
             pointer-events: none;
         }
 
-        /* Onda realista */
         .wave-bg {
             position: absolute;
             top: 0;
@@ -135,7 +131,6 @@
             }
         }
 
-        /* Conteúdo da tela de loading */
         .loading-content {
             position: relative;
             z-index: 2;
@@ -209,7 +204,6 @@
             }
         }
 
-        /* Partículas de água */
         .particles {
             position: absolute;
             top: 0;
@@ -358,7 +352,6 @@
             z-index: 0;
         }
 
-        /* Overlay gradiente no hero */
         .hero::after {
             content: '';
             position: absolute;
@@ -608,7 +601,6 @@
             box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
         }
 
-        /* Menu mobile */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -1174,4 +1166,815 @@
             margin-bottom: 20px;
         }
 
-        .cont
+        .contato-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--azul-petroleo);
+            margin-bottom: 12px;
+        }
+
+        .contato-card p {
+            color: var(--cinza-texto);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .contato-card .btn-whatsapp {
+            font-size: 1.1rem;
+            padding: 18px 50px;
+        }
+
+        /* ============================================================
+           RODAPÉ
+           ============================================================ */
+        .footer {
+            background: var(--azul-petroleo);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 50px 40px 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer .logo-footer {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--branco);
+            letter-spacing: 2px;
+        }
+
+        .footer .logo-footer span {
+            color: var(--dourado);
+        }
+
+        .footer p {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer .footer-links a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transicao);
+        }
+
+        .footer .footer-links a:hover {
+            color: var(--dourado);
+        }
+
+        .footer .footer-divider {
+            width: 60px;
+            height: 2px;
+            background: var(--dourado);
+            margin: 20px auto;
+            opacity: 0.3;
+        }
+
+        /* ============================================================
+           RESPONSIVO
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .sobre-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .sobre-imagem img {
+                height: 400px;
+            }
+
+            .local-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .galeria-mosaico {
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: 200px;
+            }
+
+            .galeria-mosaico .item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+            .galeria-mosaico .item:nth-child(4) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            .galeria-mosaico .item:nth-child(7) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 20px;
+            }
+
+            .navbar.scrolled {
+                padding: 12px 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 320px;
+                height: 100vh;
+                background: var(--branco);
+                flex-direction: column;
+                justify-content: center;
+                gap: 24px;
+                padding: 40px;
+                box-shadow: -8px 0 40px rgba(0, 0, 0, 0.08);
+                transition: var(--transicao);
+            }
+
+            .nav-links.open {
+                right: 0;
+            }
+
+            .nav-links a {
+                color: var(--azul-petroleo) !important;
+                font-size: 1.1rem;
+            }
+
+            .nav-links .btn-nav {
+                background: var(--dourado);
+                color: var(--azul-petroleo) !important;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: clamp(2.4rem, 12vw, 3.5rem);
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            #comodidades {
+                padding: 60px 20px;
+            }
+
+            #localizacao {
+                padding: 60px 20px;
+            }
+
+            .comodidades-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .galeria-mosaico {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 160px;
+                gap: 12px;
+            }
+
+            .galeria-mosaico .item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            .galeria-mosaico .item:nth-child(4) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            .galeria-mosaico .item:nth-child(7) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            .galeria-mosaico .item:nth-child(2),
+            .galeria-mosaico .item:nth-child(3),
+            .galeria-mosaico .item:nth-child(5),
+            .galeria-mosaico .item:nth-child(6),
+            .galeria-mosaico .item:nth-child(8),
+            .galeria-mosaico .item:nth-child(9) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .sobre-features {
+                grid-template-columns: 1fr;
+            }
+
+            .sobre-imagem .badge-img {
+                bottom: 16px;
+                left: 16px;
+                padding: 14px 20px;
+            }
+
+            .sobre-imagem .badge-img strong {
+                font-size: 1.4rem;
+            }
+
+            .local-info .distancias {
+                gap: 12px;
+            }
+
+            .local-info .distancias .dist {
+                min-width: 80px;
+                padding: 12px 16px;
+            }
+
+            .local-info .distancias .dist strong {
+                font-size: 1.2rem;
+            }
+
+            .contato-card {
+                padding: 40px 24px;
+            }
+
+            .contato-card .btn-whatsapp {
+                padding: 16px 32px;
+                font-size: 1rem;
+            }
+
+            .footer {
+                padding: 40px 20px 24px;
+            }
+
+            .footer .footer-links {
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content .badge {
+                font-size: 0.65rem;
+                padding: 6px 18px;
+                letter-spacing: 2px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 14px 28px;
+                font-size: 0.9rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .comodidades-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .comodidade-card {
+                padding: 20px 16px;
+            }
+
+            .comodidade-card .icon {
+                font-size: 2rem;
+            }
+
+            .galeria-mosaico {
+                grid-auto-rows: 120px;
+                gap: 8px;
+            }
+
+            .local-mapa {
+                height: 250px;
+            }
+
+            .sobre-imagem img {
+                height: 280px;
+            }
+
+            .lightbox {
+                padding: 20px;
+            }
+
+            .lightbox .close {
+                top: 16px;
+                right: 20px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    TELA DE CARREGAMENTO
+    ============================================================ -->
+    <div id="loading-screen">
+        <div class="wave-bg">
+            <svg viewBox="0 0 1200 300" preserveAspectRatio="none">
+                <path d="M0,150 C200,50 400,250 600,150 C800,50 1000,250 1200,150 L1200,300 L0,300 Z" fill="rgba(255,255,255,0.08)"/>
+            </svg>
+            <svg viewBox="0 0 1200 300" preserveAspectRatio="none">
+                <path d="M0,180 C200,80 400,280 600,180 C800,80 1000,280 1200,180 L1200,300 L0,300 Z" fill="rgba(255,255,255,0.05)"/>
+            </svg>
+            <svg viewBox="0 0 1200 300" preserveAspectRatio="none">
+                <path d="M0,210 C200,110 400,310 600,210 C800,110 1000,310 1200,210 L1200,300 L0,300 Z" fill="rgba(255,255,255,0.03)"/>
+            </svg>
+        </div>
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="loading-content">
+            <div class="subtitle">Bem-vindo ao paraíso</div>
+            <h1>CASA<br>POR <span>TEMPORADA</span></h1>
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    CONTEÚDO PRINCIPAL
+    ============================================================ -->
+    <div id="main-content">
+
+        <!-- ============================================================
+        MENU DE NAVEGAÇÃO
+        ============================================================ -->
+        <nav class="navbar" id="navbar">
+            <a href="#" class="logo">CASA<span>POR</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#comodidades">Comodidades</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#localizacao">Localização</a></li>
+                <li><a href="#contato" class="btn-nav">Reservar</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- ============================================================
+        HERO
+        ============================================================ -->
+        <section class="hero" id="hero">
+            <!-- Substitua o src pela sua imagem principal -->
+            <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/2f338803-272c-4b78-ba89-8d8b03085f7f.jpeg?im_w=1200" alt="Casa na Praia de Peracanga" class="hero-bg">
+            <div class="hero-content">
+                <span class="badge">✦ Praia de Peracanga</span>
+                <h1>Sua casa<br>à <span>beira-mar</span></h1>
+                <p>Nova Guarapari • Apenas 10 passos da praia • Para 8 hóspedes</p>
+                <div class="hero-buttons">
+                    <a href="#contato" class="btn btn-primary">📅 Reservar agora</a>
+                    <a href="#galeria" class="btn btn-secondary">📸 Ver fotos</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        SEÇÃO SOBRE
+        ============================================================ -->
+        <section class="section" id="sobre">
+            <div class="section-header">
+                <span class="tag">✦ Sobre a casa</span>
+                <h2>Um refúgio <span>à beira-mar</span></h2>
+                <p>Crie memórias inesquecíveis nesta aconchegante casa de praia familiar</p>
+            </div>
+            <div class="sobre-grid">
+                <div class="sobre-imagem">
+                    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/dbb2be19-6a53-4262-bb35-40f815bad53a.jpeg?im_w=720" alt="Vista da casa">
+                    <div class="badge-img">
+                        <strong>10 passos</strong>
+                        <span>da Praia de Peracanga</span>
+                    </div>
+                </div>
+                <div class="sobre-texto">
+                    <h3>Nova Guarapari, <span>Espírito Santo</span></h3>
+                    <p>
+                        Acomodando confortavelmente até <strong>8 hóspedes</strong>, a casa dispõe de <strong>2 quartos</strong>, 
+                        <strong>3 banheiros</strong>, incluindo uma suíte queen, além de um segundo quarto com várias camas, 
+                        ideal para famílias.
+                    </p>
+                    <p>
+                        Desfrute de uma <strong>cozinha totalmente equipada</strong>, Wi-Fi, área de lavanderia e 
+                        estacionamento para até 3 carros. Uma localização imbatível oferece acesso à praia a apenas 
+                        <strong>10 passos de distância</strong>, perfeita para relaxar dias à beira-mar.
+                    </p>
+                    <div class="sobre-features">
+                        <div class="feature"><span class="icon">🛏️</span> 2 quartos</div>
+                        <div class="feature"><span class="icon">🚿</span> 3 banheiros</div>
+                        <div class="feature"><span class="icon">👨‍👩‍👧‍👦</span> 8 hóspedes</div>
+                        <div class="feature"><span class="icon">🚗</span> 3 vagas</div>
+                        <div class="feature"><span class="icon">📶</span> Wi-Fi</div>
+                        <div class="feature"><span class="icon">❄️</span> Ar-condicionado</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        SEÇÃO COMODIDADES
+        ============================================================ -->
+        <section id="comodidades">
+            <div class="section">
+                <div class="section-header">
+                    <span class="tag">✦ Comodidades</span>
+                    <h2>Tudo o que você <span>precisa</span></h2>
+                    <p>Equipamentos e serviços para uma estadia perfeita</p>
+                </div>
+                <div class="comodidades-grid">
+                    <div class="comodidade-card">
+                        <span class="icon">🏖️</span>
+                        <h4>Acesso à praia</h4>
+                        <p>10 passos de distância</p>
+                    </div>
+                    <div class="comodidade-card">
+                        <span class="icon">🍳</span>
+                        <h4>Cozinha completa</h4>
+                        <p>Totalmente equipada</p>
+                    </div>
+                    <div class="comodidade-card">
+                        <span class="icon">📶</span>
+                        <h4>Wi-Fi</h4>
+                        <p>Internet de alta velocidade</p>
+                    </div>
+                    <div class="comodidade-card">
+                        <span class="icon">🅿️</span>
+                        <h4>Estacionamento</h4>
+                        <p>3 vagas gratuitas</p>
+                    </div>
+                    <div class="comodidade-card">
+                        <span class="icon">❄️</span>
+                        <h4>Ar-condicionado</h4>
+                        <p>Em todos os cômodos</p>
+                    </div>
+                    <div class="comodidade-card">
+                        <span class="icon">🧺</span>
+                        <h4>Lavanderia</h4>
+                        <p>Área completa</p>
+                    </div>
+                    <div class="comodidade-card">
+                        <span class="icon">🛏️</span>
+                        <h4>Suíte Queen</h4>
+                        <p>Cama king size</p>
+                    </div>
+                    <div class="comodidade-card">
+                        <span class="icon">☕</span>
+                        <h4>Café da manhã</h4>
+                        <p>Cafeteira elétrica</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        SEÇÃO GALERIA
+        ============================================================ -->
+        <section id="galeria">
+            <div class="section">
+                <div class="section-header">
+                    <span class="tag">✦ Galeria</span>
+                    <h2>Veja os <span>detalhes</span></h2>
+                    <p>Clique em qualquer foto para ampliar</p>
+                </div>
+                <div class="galeria-mosaico">
+                    <div class="item">
+                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/2f338803-272c-4b78-ba89-8d8b03085f7f.jpeg?im_w=720" alt="Sala de estar">
+                        <div class="overlay"><span>Sala de estar</span></div>
+                    </div>
+                    <div class="item">
+                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/dbb2be19-6a53-4262-bb35-40f815bad53a.jpeg?im_w=720" alt="Sala de estar 2">
+                        <div class="overlay"><span>Sala de estar</span></div>
+                    </div>
+                    <div class="item">
+                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/795a1f7e-d26b-47de-b1e9-81725c8cbf98.jpeg?im_w=720" alt="Cozinha">
+                        <div class="overlay"><span>Cozinha</span></div>
+                    </div>
+                    <div class="item">
+                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/88807488-0cca-4008-a09c-be7bca8d44e3.jpeg?im_w=720" alt="Quarto">
+                        <div class="overlay"><span>Quarto</span></div>
+                    </div>
+                    <div class="item">
+                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/69dd3da9-4d77-4b47-ad24-93586cc1b7e6.jpeg?im_w=720" alt="Banheiro">
+                        <div class="overlay"><span>Banheiro</span></div>
+                    </div>
+                    <div class="item">
+                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/6dd73f4d-c142-4829-9c55-f89c9c119cf9.jpeg?im_w=720" alt="Área de jantar">
+                        <div class="overlay"><span>Área de jantar</span></div>
+                    </div>
+                    <div class="item">
+                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/84d6cfc4-e348-4f5c-9c64-4c23205d9c6c.jpeg?im_w=720" alt="Cozinha 2">
+                        <div class="overlay"><span>Cozinha</span></div>
+                    </div>
+                    <div class="item">
+                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/19cb30f7-e542-4d81-bcf2-6594a9291ab3.jpeg?im_w=720" alt="Banheiro 2">
+                        <div class="overlay"><span>Banheiro</span></div>
+                    </div>
+                    <div class="item">
+                        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/b73cbed6-5761-4c90-b3f3-083717b26640.jpeg?im_w=720" alt="Lavanderia">
+                        <div class="overlay"><span>Lavanderia</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        LIGHTBOX
+        ============================================================ -->
+        <div class="lightbox" id="lightbox">
+            <button class="close" id="lightboxClose">✕</button>
+            <img src="" alt="Foto ampliada" id="lightboxImg">
+        </div>
+
+        <!-- ============================================================
+        SEÇÃO LOCALIZAÇÃO
+        ============================================================ -->
+        <section id="localizacao">
+            <div class="section">
+                <div class="section-header">
+                    <span class="tag">✦ Localização</span>
+                    <h2>Onde <span>ficamos</span></h2>
+                    <p>Nova Guarapari, Praia de Peracanga</p>
+                </div>
+                <div class="local-grid">
+                    <div class="local-info">
+                        <h3>Praia de <span>Peracanga</span></h3>
+                        <p>
+                            Localizada em Nova Guarapari, a Praia de Peracanga é um dos destinos mais tranquilos 
+                            e belos do Espírito Santo. Com águas calmas e areias douradas, é o cenário perfeito 
+                            para dias de descanso e lazer em família.
+                        </p>
+                        <div class="distancias">
+                            <div class="dist">
+                                <strong>10</strong>
+                                <span>passos da praia</span>
+                            </div>
+                            <div class="dist">
+                                <strong>5</strong>
+                                <span>min do centro</span>
+                            </div>
+                            <div class="dist">
+                                <strong>30</strong>
+                                <span>min de Vitória</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="local-mapa">
+                        <div class="placeholder-map">
+                            <span class="icon">🗺️</span>
+                            <p>Praia de Peracanga<br>Nova Guarapari - ES</p>
+                            <small style="opacity:0.5;">Mapa interativo disponível</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        SEÇÃO CONTATO
+        ============================================================ -->
+        <section id="contato">
+            <div class="section">
+                <div class="section-header">
+                    <span class="tag">✦ Contato</span>
+                    <h2>Garanta sua <span>estadia</span></h2>
+                    <p>Fale conosco e reserve sua temporada</p>
+                </div>
+                <div class="contato-card">
+                    <span class="icon-grande">🏖️</span>
+                    <h3>Reserve agora!</h3>
+                    <p>
+                        Clique no botão abaixo e envie uma mensagem direta pelo WhatsApp.<br>
+                        Respondemos rapidamente!
+                    </p>
+                    <a href="https://wa.me/5527995088540?text=Ol%C3%A1%2C%20gostaria%20de%20reservar%20a%20casa%20na%20Praia%20de%20Peracanga!" 
+                       target="_blank" 
+                       class="btn btn-whatsapp">
+                        💬 Fale conosco no WhatsApp
+                    </a>
+                    <p style="margin-top: 16px; font-size: 0.9rem; color: var(--cinza-texto);">
+                        📞 +55 27 99508-8540
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        RODAPÉ
+        ============================================================ -->
+        <footer class="footer">
+            <div class="footer-inner">
+                <div class="logo-footer">CASA<span>POR</span></div>
+                <div class="footer-divider"></div>
+                <p>
+                    Praia de Peracanga • Nova Guarapari • Espírito Santo<br>
+                    © 2026 Casa por Temporada • Todos os direitos reservados
+                </p>
+                <div class="footer-links">
+                    <a href="#sobre">Sobre</a>
+                    <a href="#comodidades">Comodidades</a>
+                    <a href="#galeria">Galeria</a>
+                    <a href="#localizacao">Localização</a>
+                    <a href="#contato">Contato</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // TELA DE CARREGAMENTO
+        // ============================================================
+        window.addEventListener('load', function() {
+            const loading = document.getElementById('loading-screen');
+            const content = document.getElementById('main-content');
+
+            setTimeout(function() {
+                loading.classList.add('hidden');
+                content.classList.add('visible');
+            }, 3200);
+        });
+
+        // ============================================================
+        // MENU DE NAVEGAÇÃO - SCROLL E MOBILE
+        // ============================================================
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        // Scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Menu mobile toggle
+        menuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (!navbar.contains(e.target)) {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            }
+        });
+
+        // ============================================================
+        // LIGHTBOX DA GALERIA
+        // ============================================================
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        document.querySelectorAll('.galeria-mosaico .item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                lightboxImg.src = img.src;
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // ============================================================
+        // ANIMAÇÃO DE ENTRADA DOS CARDS (Intersection Observer)
+        // ============================================================
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar animação nos cards de comodidades
+        document.querySelectorAll('.comodidade-card').forEach(function(card, index) {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(40px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            card.style.transitionDelay = (index * 0.08) + 's';
+            observer.observe(card);
+        });
+
+        // Aplicar animação nas features da seção sobre
+        document.querySelectorAll('.sobre-features .feature').forEach(function(feature, index) {
+            feature.style.opacity = '0';
+            feature.style.transform = 'translateX(-20px)';
+            feature.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            feature.style.transitionDelay = (index * 0.06) + 's';
+            observer.observe(feature);
+        });
+
+        // Aplicar animação nos itens da galeria
+        document.querySelectorAll('.galeria-mosaico .item').forEach(function(item, index) {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.92)';
+            item.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+            item.style.transitionDelay = (index * 0.05) + 's';
+            observer.observe(item);
+        });
+
+        // ============================================================
+        // EFEITO PARALLAX NO HERO (suave)
+        // ============================================================
+        const hero = document.querySelector('.hero');
+        const heroBg = document.querySelector('.hero-bg');
+
+        window.addEventListener('scroll', function() {
+            const scrolled = window.scrollY;
+            if (scrolled < hero.offsetHeight) {
+                heroBg.style.transform = 'translateY(' + (scrolled * 0.3) + 'px) scale(1.02)';
+            }
+        });
+
+        // ============================================================
+        // CONSOLE LOG PERSONALIZADO
+        // ============================================================
+        console.log('%c🏠 Casa por Temporada', 'font-size:2rem; font-weight:700; color:#d4af37;');
+        console.log('%c📍 Praia de Peracanga • Nova Guarapari - ES', 'font-size:1rem; color:#0a4a5e;');
+        console.log('%c📞 +55 27 99508-8540', 'font-size:1rem; color:#25d366;');
+        console.log('%c✨ Site premium carregado com sucesso!', 'font-size:1rem; color:#1a2f3a;');
+
+        console.log('========================================');
+        console.log('✅ Todas as funcionalidades ativas:');
+        console.log('   • Tela de carregamento com ondas');
+        console.log('   • Menu transparente → fixo');
+        console.log('   • Galeria com lightbox');
+        console.log('   • Animações com Intersection Observer');
+        console.log('   • Parallax no hero');
+        console.log('   • Design 100% responsivo');
+        console.log('========================================');
+    </script>
+
+</body>
+</html>
