@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa por Temporada - Nova Guarapari</title>
     <style>
-        /* ===== RESET E BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -19,7 +18,6 @@
             overflow-x: hidden;
         }
 
-        /* ===== TELA DE CARREGAMENTO ===== */
         #loading-screen {
             position: fixed;
             top: 0;
@@ -127,7 +125,6 @@
             50% { opacity: 1; }
         }
 
-        /* ===== CONTEÚDO PRINCIPAL ===== */
         #main-content {
             opacity: 0;
             transition: opacity 1s ease;
@@ -137,7 +134,6 @@
             opacity: 1;
         }
 
-        /* ===== HEADER ===== */
         .header {
             background: linear-gradient(135deg, #0b3a5a, #1a6b8a);
             color: #fff;
@@ -179,7 +175,6 @@
             letter-spacing: 2px;
         }
 
-        /* ===== NAVEGAÇÃO ===== */
         .nav-bar {
             background: #fff;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -216,7 +211,6 @@
             color: #fff;
         }
 
-        /* ===== SEÇÕES ===== */
         .section {
             max-width: 1200px;
             margin: 0 auto;
@@ -242,7 +236,6 @@
             border-radius: 4px;
         }
 
-        /* ===== SOBRE ===== */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -285,7 +278,6 @@
             height: 200px;
         }
 
-        /* ===== BOTÕES DE AÇÃO ===== */
         .actions {
             display: flex;
             flex-wrap: wrap;
@@ -357,20 +349,6 @@
             box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
         }
 
-        .btn-outline {
-            background: transparent;
-            color: #1a6b8a;
-            border: 3px solid #1a6b8a;
-            box-shadow: none;
-        }
-
-        .btn-outline:hover {
-            background: #1a6b8a;
-            color: #fff;
-            box-shadow: 0 8px 30px rgba(26, 107, 138, 0.3);
-        }
-
-        /* ===== LISTA DE FOTOS ===== */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -391,7 +369,6 @@
             transform: scale(1.04);
         }
 
-        /* ===== FOOTER ===== */
         .footer {
             background: #0b3a5a;
             color: rgba(255,255,255,0.7);
@@ -405,7 +382,6 @@
             color: #fff;
         }
 
-        /* ===== RESPONSIVO ===== */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -473,7 +449,7 @@
 </head>
 <body>
 
-    <!-- ===== TELA DE CARREGAMENTO ===== -->
+    <!-- TELA DE CARREGAMENTO -->
     <div id="loading-screen">
         <div class="wave-container">
             <span class="wave-text">🌊</span>
@@ -485,7 +461,7 @@
         <div class="loading-sub">Carregando experiência...</div>
     </div>
 
-    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <div id="main-content">
 
         <!-- HEADER -->
@@ -502,7 +478,7 @@
             <a href="#alugar">Alugar</a>
         </nav>
 
-        <!-- ===== SEÇÃO SOBRE ===== -->
+        <!-- SOBRE -->
         <section class="section" id="sobre">
             <h2 class="section-title">🌴 Sobre a Casa</h2>
             <div class="about-grid">
@@ -525,43 +501,63 @@
                         <span style="background: #eef5fa; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem;">👨‍👩‍👧‍👦 8 hóspedes</span>
                         <span style="background: #eef5fa; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem;">🚗 3 vagas</span>
                         <span style="background: #eef5fa; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem;">📶 Wi-Fi</span>
+                        <span style="background: #eef5fa; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem;">❄️ Ar-condicionado</span>
                     </div>
                 </div>
                 <div class="about-gallery">
-                    <!-- Substitua os src pelos links reais das suas fotos -->
-                    <img src="https://via.placeholder.com/400x200/1a6b8a/fff?text=Sala+de+Estar+1" alt="Sala de estar" class="big">
-                    <img src="https://via.placeholder.com/400x200/2ea3c7/fff?text=Sala+2" alt="Sala 2">
-                    <img src="https://via.placeholder.com/400x200/0b3a5a/fff?text=Cozinha" alt="Cozinha">
-                    <img src="https://via.placeholder.com/400x200/1a6b8a/fff?text=Quarto" alt="Quarto">
-                    <img src="https://via.placeholder.com/400x200/2ea3c7/fff?text=Banheiro" alt="Banheiro">
+                    <!-- Fotos principais da galeria -->
+                    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/2f338803-272c-4b78-ba89-8d8b03085f7f.jpeg?im_w=720" alt="Sala de estar" class="big">
+                    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/dbb2be19-6a53-4262-bb35-40f815bad53a.jpeg?im_w=720" alt="Sala de estar 2">
+                    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/795a1f7e-d26b-47de-b1e9-81725c8cbf98.jpeg?im_w=720" alt="Cozinha">
+                    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/88807488-0cca-4008-a09c-be7bca8d44e3.jpeg?im_w=720" alt="Quarto">
+                    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/69dd3da9-4d77-4b47-ad24-93586cc1b7e6.jpeg?im_w=720" alt="Banheiro">
                 </div>
             </div>
         </section>
 
-        <!-- ===== SEÇÃO FOTOS ===== -->
+        <!-- GALERIA DE FOTOS -->
         <section class="section" id="fotos" style="background: #f8fafc; border-radius: 40px 40px 0 0;">
             <h2 class="section-title">📸 Fotos da Casa</h2>
             <div class="photo-grid" id="photoGrid">
-                <!-- 12 placeholders. Substitua os src pelos links reais -->
-                <img src="https://via.placeholder.com/400x300/1a6b8a/fff?text=Sala+1" alt="Sala 1">
-                <img src="https://via.placeholder.com/400x300/2ea3c7/fff?text=Sala+2" alt="Sala 2">
-                <img src="https://via.placeholder.com/400x300/0b3a5a/fff?text=Sala+3" alt="Sala 3">
-                <img src="https://via.placeholder.com/400x300/1a6b8a/fff?text=Sala+4" alt="Sala 4">
-                <img src="https://via.placeholder.com/400x300/2ea3c7/fff?text=Cozinha+1" alt="Cozinha 1">
-                <img src="https://via.placeholder.com/400x300/0b3a5a/fff?text=Cozinha+2" alt="Cozinha 2">
-                <img src="https://via.placeholder.com/400x300/1a6b8a/fff?text=Jantar+1" alt="Jantar 1">
-                <img src="https://via.placeholder.com/400x300/2ea3c7/fff?text=Jantar+2" alt="Jantar 2">
-                <img src="https://via.placeholder.com/400x300/0b3a5a/fff?text=Banheiro+1" alt="Banheiro 1">
-                <img src="https://via.placeholder.com/400x300/1a6b8a/fff?text=Banheiro+2" alt="Banheiro 2">
-                <img src="https://via.placeholder.com/400x300/2ea3c7/fff?text=Banheiro+3" alt="Banheiro 3">
-                <img src="https://via.placeholder.com/400x300/0b3a5a/fff?text=Lavanderia" alt="Lavanderia">
+                <!-- Sala de Estar -->
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/2f338803-272c-4b78-ba89-8d8b03085f7f.jpeg?im_w=720" alt="Sala de estar 1">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/dbb2be19-6a53-4262-bb35-40f815bad53a.jpeg?im_w=720" alt="Sala de estar 2">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/6dd73f4d-c142-4829-9c55-f89c9c119cf9.jpeg?im_w=720" alt="Sala de estar 3">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/84d6cfc4-e348-4f5c-9c64-4c23205d9c6c.jpeg?im_w=720" alt="Sala de estar 4">
+                
+                <!-- Cozinha -->
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/795a1f7e-d26b-47de-b1e9-81725c8cbf98.jpeg?im_w=720" alt="Cozinha 1">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/19cb30f7-e542-4d81-bcf2-6594a9291ab3.jpeg?im_w=720" alt="Cozinha 2">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/b73cbed6-5761-4c90-b3f3-083717b26640.jpeg?im_w=720" alt="Cozinha 3">
+                
+                <!-- Área de Jantar -->
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/88786082-629e-4856-b022-4ed2eb2d5df2.jpeg?im_w=720" alt="Jantar 1">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/d133aaac-8c6d-463e-bcf6-660b8c6e6448.jpeg?im_w=720" alt="Jantar 2">
+                
+                <!-- Banheiros -->
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/69dd3da9-4d77-4b47-ad24-93586cc1b7e6.jpeg?im_w=720" alt="Banheiro 1">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/4f2537db-cc67-4d98-94ff-68a7470bb3fc.jpeg?im_w=720" alt="Banheiro 2">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/ba56158b-cd1c-4655-9013-44a9d8f8c921.jpeg?im_w=720" alt="Banheiro 3">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/5e04c4bb-be8c-43fa-8af6-e6748f03f345.jpeg?im_w=720" alt="Banheiro 4">
+                
+                <!-- Quartos -->
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/88807488-0cca-4008-a09c-be7bca8d44e3.jpeg?im_w=720" alt="Quarto 1">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/8885fe82-0568-4778-8b7c-869e51b7f8ac.jpeg?im_w=720" alt="Quarto 2">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/d98813ec-fc7c-436a-99b6-6858ce2a54bd.jpeg?im_w=720" alt="Quarto 3">
+                
+                <!-- Lavanderia -->
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/0e360f77-e756-41f1-bba7-7b15126d74e5.jpeg?im_w=720" alt="Lavanderia">
+                
+                <!-- Área Externa -->
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/abf1d539-9626-4049-94fb-0e49d3a60aef.png?im_w=720" alt="Área externa 1">
+                <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1583379250515984709/original/a597fba0-b956-450b-b5d5-a825dffb3717.jpeg?im_w=720" alt="Área externa 2">
             </div>
             <p style="text-align: center; margin-top: 20px; color: #5a6a7a; font-size: 0.9rem;">
-                📸 55 fotos disponíveis • Passe o mouse para ampliar
+                📸 20 fotos disponíveis • Passe o mouse para ampliar
             </p>
         </section>
 
-        <!-- ===== SEÇÃO RESERVAR ===== -->
+        <!-- RESERVAR -->
         <section class="section" id="reservar">
             <h2 class="section-title">📅 Reservar Temporada</h2>
             <div class="actions">
@@ -569,7 +565,7 @@
                     <div class="icon">📆</div>
                     <h3>Reserve sua data</h3>
                     <p>Clique no botão abaixo e confirme sua reserva com apenas uma mensagem.</p>
-                    <a href="https://wa.me/5527995088540?text=Olá%2C%20gostaria%20de%20garantir%20a%20reserva!" 
+                    <a href="https://wa.me/5527995088540?text=Ol%C3%A1%2C%20gostaria%20de%20garantir%20a%20reserva%20da%20casa%20na%20Praia%20de%20Peracanga!" 
                        target="_blank" 
                        class="btn btn-whatsapp">
                         💬 Reservar agora
@@ -578,7 +574,7 @@
             </div>
         </section>
 
-        <!-- ===== SEÇÃO ALUGAR ===== -->
+        <!-- ALUGAR -->
         <section class="section" id="alugar" style="background: #f8fafc; border-radius: 40px;">
             <h2 class="section-title">🔑 Alugar para Temporada</h2>
             <div class="actions">
@@ -586,7 +582,7 @@
                     <div class="icon">🏖️</div>
                     <h3>Alugue a casa</h3>
                     <p>Interessado em alugar a casa por temporada? Entre em contato agora mesmo!</p>
-                    <a href="https://wa.me/5527995088540?text=Olá%2C%20gostaria%20de%20alugar%20a%20casa%20pra%20temporada!" 
+                    <a href="https://wa.me/5527995088540?text=Ol%C3%A1%2C%20gostaria%20de%20alugar%20a%20casa%20na%20Praia%20de%20Peracanga%20para%20temporada!" 
                        target="_blank" 
                        class="btn btn-whatsapp">
                         💬 Quero alugar
@@ -599,27 +595,25 @@
         <footer class="footer">
             <p>
                 <strong>Casa por Temporada</strong> • Nova Guarapari • Praia de Peracanga<br>
-                © 2026 • Todos os direitos reservados
+                Anfitrião: Shawn Laser • © 2026 • Todos os direitos reservados
             </p>
         </footer>
 
     </div>
 
-    <!-- ===== SCRIPT ===== -->
     <script>
-        // ===== TELA DE CARREGAMENTO =====
+        // Tela de carregamento
         window.addEventListener('load', function() {
             const loading = document.getElementById('loading-screen');
             const content = document.getElementById('main-content');
 
-            // Tempo mínimo de exibição para o efeito (2.5s)
             setTimeout(function() {
                 loading.classList.add('hidden');
                 content.classList.add('visible');
             }, 2500);
         });
 
-        // ===== NAVEGAÇÃO COM SCROLL SUAVE E DESTAQUE =====
+        // Navegação com scroll suave
         const navLinks = document.querySelectorAll('.nav-bar a');
         const sections = document.querySelectorAll('.section');
 
@@ -642,7 +636,6 @@
 
         window.addEventListener('scroll', updateActiveLink);
 
-        // Scroll suave ao clicar nos links
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -654,16 +647,16 @@
             });
         });
 
-        // ===== CLICK NAS FOTOS ABRE EM TELA CHEIA (opcional) =====
+        // Abrir imagens em nova aba ao clicar
         document.querySelectorAll('.about-gallery img, .photo-grid img').forEach(img => {
             img.addEventListener('click', function() {
-                // Abre a imagem em nova aba (simples)
                 window.open(this.src, '_blank');
             });
         });
 
         console.log('🏠 Casa por Temporada - Site carregado com sucesso!');
         console.log('📞 Contato: +55 27 99508-8540');
+        console.log('👤 Anfitrião: Shawn Laser');
     </script>
 
 </body>
